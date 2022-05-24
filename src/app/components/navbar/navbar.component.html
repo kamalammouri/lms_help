@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand col-lg-3 col-sm-4 col-5 text-center mr-auto">
+            <img src="./assets/img/MOBILETIC_Logo.png" alt="mobiletic logo" class="navbar-logo w-75 m-auto">
+        </a>
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto ps-5 mb-2 mb-lg-0 text-center ">
+                <li class="nav-item">
+                    <a class="nav-link text-white" routerLinkActive="active" routerLink="home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" routerLinkActive="active" routerLink="search">search</a>
+                </li>
+
+            </ul>
+        </div> -->
+    </div>
+    <select #selLang (change)="translateLanguageTo(selLang.value)">
+        <!-- <option *ngFor="let language of translate.getLangs()" [value]="language">{{ language }}</option> -->
+        <option value="fr">Fr</option>
+        <option value="en">En</option>
+        <option value="de">de</option>
+    </select>
+</nav>

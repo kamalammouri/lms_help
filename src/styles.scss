@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+:root {
+    --mbtPrimary:#6A1FFE;
+    --mbtSecondary:#00FC8F;
+    --mbtDark: #12d61e33;
+    }
+    
+    .mbt-primary {
+        background-color: var(--mbtPrimary);
+        color: #fff ;
+    }
+    .mbt-secondary {
+        background-color: var(--mbtSecondary);
+        color: #12d61e33 ;
+    }

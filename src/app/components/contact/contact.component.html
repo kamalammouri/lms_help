@@ -1,0 +1,47 @@
+  <div class="contact_icon cursor-pointer" *ngIf="imgHide" (click)="togle(false)">
+    <img src="https://img.icons8.com/fluency/48/000000/get-help.png"/>
+  </div>
+<div class="contact_form" *ngIf="!imgHide">
+    <div class="container py-2">
+      <div class="row p-1 d-flex justify-content-between">
+        <div class="col-6">        
+          <span class="h4">Contact</span>
+        </div>
+        <div class="col-2 d-flex align-items-center cursor-pointer" (click)="togle(true)">
+          <!-- <span type="button" class="btn-close" aria-label="Close" ></span> -->
+          <i class="fa fa-times-circle"></i>
+        </div>
+      </div>
+      <div class="row p-1">
+        <input type="text" name="fullname" id="fullname" placeholder="Nom, prénom" formControlName="fullname" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }" required>
+        <div *ngIf="submitted && f['fullname'].errors" class="invalid-feedback">
+          <div *ngIf="f['fullname'].errors['required']">Nom et prenom is required</div>
+        </div>
+      </div>
+      <div class="row p-1">
+        <input type="email" name="email" id="email" placeholder="Email" formControlName="email" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" required>
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">Email is required</div>
+          <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+        </div>
+      </div>
+      <div class="row p-1">
+        <textarea name="messgae" id="" cols="20" rows="5" placeholder="Messgae" formControlName="message" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['message'].errors }"required></textarea>
+        <div *ngIf="submitted && f['message'].errors" class="invalid-feedback">
+          <div *ngIf="f['message'].errors['required']">Message is required</div>
+          <div *ngIf="f['message'].errors['minlength']">
+            Message must be at least 25 characters
+          </div>
+          <div *ngIf="f['message'].errors['maxlength']">
+            Message must not exceed 250 characters
+          </div>
+        </div>
+      </div>
+      <div class="row p-2">
+        <button class="col-4 mr-auto btn_send" (click)="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+  </div>
