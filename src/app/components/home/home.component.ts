@@ -11,17 +11,24 @@ import { GeneraleService } from 'src/app/services/generale.service';
 export class HomeComponent implements OnInit {
   routeParams: any = {};
   queryParams:any = {};
+  langs=['en', 'de', 'fr'];
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService:GeneraleService) {
      }
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(res => this.routeParams=res);
+    this.activeRoute.params.subscribe((res:any) => {
+      if(res){
+        this.routeParams=res;
+        if(this.langs.includes(res.lg)){
+          this.generaleService.translateLanguageTo(res.lg);
+        }else{
+          this.generaleService.translateLanguageTo('fr',true);
+        }
+      }
+    });
     this.activeRoute.queryParams.subscribe(res => this.queryParams=res);
-    
-    // this.generaleService.activeLanguage.next(this.routeParams.lg);
-    this.generaleService.translateLanguageTo(this.routeParams.lg);
   }
 
   ngOnDestroy() {

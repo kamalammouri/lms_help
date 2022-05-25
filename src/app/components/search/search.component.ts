@@ -14,7 +14,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchTerm$ = new BehaviorSubject<string|null>(null)
   subQueryparams: Subscription
   subSearch: Subscription
-
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,

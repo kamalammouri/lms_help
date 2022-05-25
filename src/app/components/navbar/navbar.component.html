@@ -4,9 +4,9 @@
             <img src="./assets/img/MOBILETIC_Logo.png" alt="mobiletic logo" class="navbar-logo w-50 m-auto">
         </a>
         <div class="d-flex me-4">
-            <span class="p-1 mx-1 lgBtn text-center h5" [hidden]="activeLg=='fr'" (click)="translateLanguageTo('fr')">Fr</span>
-            <span class="p-1 mx-1 lgBtn text-center h5" [hidden]="activeLg=='de'" (click)="translateLanguageTo('de')">De</span>
-            <span class="p-1 mx-1 lgBtn text-center h5" [hidden]="activeLg=='en'" (click)="translateLanguageTo('en')">En</span>
+            <span class="p-1 mx-1 lgBtn text-center h5" [class.lgBtnActive]="activeLg=='fr'" (click)="translateLanguageTo('fr')">Fr</span>
+            <span class="p-1 mx-1 lgBtn text-center h5" [class.lgBtnActive]="activeLg=='de'" (click)="translateLanguageTo('de')">De</span>
+            <span class="p-1 mx-1 lgBtn text-center h5" [class.lgBtnActive]="activeLg=='en'" (click)="translateLanguageTo('en')">En</span>
         </div>
     </div>
 </nav>

@@ -1,36 +1,38 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs';
-import { Location } from '@angular/common';
+import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
+import { TranslateService } from '@ngx-translate/core'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GeneraleService {
-
-  activeLanguage = new BehaviorSubject<string>('');
-  routeParams:any = new BehaviorSubject<any>(null);
-  navigateTo:any = null;
-
+  activeLanguage = new BehaviorSubject<string>('')
+  routeParams: any = new BehaviorSubject<any>(null)
+  navigateTo: any = null
+  langs=['en', 'de', 'fr'];
   constructor(
     private router: Router,
     public translate: TranslateService,
-    private location: Location
-    ) { 
-    }
+  ) {}
 
-//http://localhost:4200/fr/search?q=mot_de_pass&f=video
-  
-translateLanguageTo(lang: string,redirectTo:boolean=false) {  
-  this.translate.use(lang); 
-  if(redirectTo){
-    this.activeLanguage.next(lang);
-    this.navigateTo = this.router.url.split('/');
-    this.navigateTo[1] = lang;
-    this.router.navigateByUrl(this.navigateTo.join('/'));
+  //http://localhost:4200/fr/search?q=mot_de_pass&f=video
+
+  translateLanguageTo(lang: string, redirectTo: boolean = false) {
+    if(this.langs.includes(lang)){
+     this.translateLanguage(lang,redirectTo);
+    }else{
+      this.translateLanguage('fr',redirectTo);
+    }
   }
-  
-  // console.log(this.navigateTo.join('/'));
+
+  translateLanguage(lang: string,redirectTo: boolean = false) {
+    this.translate.use(lang)
+    this.activeLanguage.next(lang)
+    if (redirectTo) {
+    this.navigateTo = this.router.url.split('/')
+    this.navigateTo[1] = lang
+    this.router.navigateByUrl(this.navigateTo.join('/'))
+    }
   }
 }

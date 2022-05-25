@@ -27,6 +27,6 @@ export class NavbarComponent implements OnInit {
   }
   
   translateLanguageTo(lang: string) {
-    this.generaleService.translateLanguageTo(lang,true);
+    this.generaleService.translateLanguage(lang,true);
   }
 }
