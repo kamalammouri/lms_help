@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { Location } from '@angular/common';
@@ -9,24 +9,28 @@ import { Location } from '@angular/common';
 })
 export class GeneraleService {
 
-  activeLanguage = new BehaviorSubject<string>('fr');
+  activeLanguage = new BehaviorSubject<string>('');
   routeParams:any = new BehaviorSubject<any>(null);
-  url:any;
-  private _routeParams:any;
+  navigateTo:any = null;
+
   constructor(
+    private router: Router,
     public translate: TranslateService,
-    private activatedRoute:ActivatedRoute,
     private location: Location
-    ) {
+    ) { 
     }
-//http://localhost:4200/?langue=fr&filter=image,video
-  translateLanguageTo(lang: string) {
-    this.translate.use(lang);
+
+//http://localhost:4200/fr/search?q=mot_de_pass&f=video
+  
+translateLanguageTo(lang: string,redirectTo:boolean=false) {  
+  this.translate.use(lang); 
+  if(redirectTo){
     this.activeLanguage.next(lang);
-    // this.location.replaceState('home/'+lang);
-    this.activatedRoute.url.subscribe((res:any) => {
-      this.url=res
-      console.log('url',res);
-    });
+    this.navigateTo = this.router.url.split('/');
+    this.navigateTo[1] = lang;
+    this.router.navigateByUrl(this.navigateTo.join('/'));
+  }
+  
+  // console.log(this.navigateTo.join('/'));
   }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { GeneraleService } from 'src/app/services/generale.service';
 import { Location } from '@angular/common';
@@ -11,6 +11,9 @@ import { Location } from '@angular/common';
 export class NavbarComponent implements OnInit {
   activeLg:string='';
   constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
     public translate: TranslateService,
     private generaleService:GeneraleService,
     ) { 
@@ -24,6 +27,6 @@ export class NavbarComponent implements OnInit {
   }
   
   translateLanguageTo(lang: string) {
-    this.generaleService.translateLanguageTo(lang);
+    this.generaleService.translateLanguageTo(lang,true);
   }
 }

@@ -28,3 +28,11 @@ textarea {
     outline: 2px solid var(--mbtSecondary);
     outline-offset: 2px;
 }
+
+.msg_icon{
+    color: var(--mbtPrimary) !important;
+    padding:10px;
+    border-radius:50%;
+    border: 2px solid var(--mbtPrimary) !important;
+    transform: rotateY(-180deg);
+}

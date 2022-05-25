@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { GeneraleService } from 'src/app/services/generale.service';
@@ -10,22 +10,18 @@ import { GeneraleService } from 'src/app/services/generale.service';
 })
 export class HomeComponent implements OnInit {
   routeParams: any = {};
+  queryParams:any = {};
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private location: Location,
-    public translate: TranslateService,
+    private activeRoute: ActivatedRoute,
     private generaleService:GeneraleService) {
-      this.activatedRoute.queryParamMap.subscribe((params:any) => {
-        if ('langue' in params.params && 'filter' in params.params ){
-          this.generaleService.routeParams.next(params.params);
-          console.log('routeParams',params.params);
-        }else{
-          console.log('not langue Params !!!');
-        }
-      });
      }
 
   ngOnInit(): void {
+    this.activeRoute.params.subscribe(res => this.routeParams=res);
+    this.activeRoute.queryParams.subscribe(res => this.queryParams=res);
+    
+    this.generaleService.activeLanguage.next(this.routeParams.lg);
+    this.generaleService.translateLanguageTo(this.routeParams.lg);
   }
 
   ngOnDestroy() {
