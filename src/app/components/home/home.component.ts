@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.activeRoute.params.subscribe(res => this.routeParams=res);
     this.activeRoute.queryParams.subscribe(res => this.queryParams=res);
     
-    this.generaleService.activeLanguage.next(this.routeParams.lg);
+    // this.generaleService.activeLanguage.next(this.routeParams.lg);
     this.generaleService.translateLanguageTo(this.routeParams.lg);
   }
 

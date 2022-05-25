@@ -5,5 +5,11 @@
     <div class="card-body">
         <p class="card-text">Body</p>
     </div>
+    <ul>
+        <li *ngFor="let article of topArticles$ | async">
+            {{article}}
+            <a routerLink="fr/article/{{article}}" routerLinkClass="active">{{article}}</a>
+        </li>
+    </ul>
 </div>
 

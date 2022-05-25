@@ -19,7 +19,7 @@ export class ArticleDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(res => this.routeParams=res);
-    console.log('routeParam',this.routeParams);
+    // console.log('routeParam',this.routeParams);
     
     this.generaleService.activeLanguage.next(this.routeParams.lg);
     this.generaleService.translateLanguageTo(this.routeParams.lg);

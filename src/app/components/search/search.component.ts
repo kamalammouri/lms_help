@@ -11,7 +11,7 @@ import { GeneraleService } from 'src/app/services/generale.service'
 })
 export class SearchComponent implements OnInit, OnDestroy {
   queryParams: any = {}
-  searchTerm$ = new BehaviorSubject<string>('')
+  searchTerm$ = new BehaviorSubject<string|null>(null)
   subQueryparams: Subscription
   subSearch: Subscription
 
@@ -27,14 +27,22 @@ export class SearchComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.searchTerm$.next(res.q)
-        // if (res.q == '') this.router.navigateByUrl('/')
+        if (res.q == '') this.router.navigate(['/'])
       })
 
     this.subSearch = this.searchTerm$
-      .pipe(debounceTime(500), distinctUntilChanged())
+      .pipe(
+        filter(text => text != null),
+        debounceTime(500), 
+        distinctUntilChanged())
       .subscribe((text) => {
-        let lg = this.generaleService.activeLanguage.getValue();
-        // this.router.navigate(['/'+lg+'/search'], { queryParams: { q: text } })
+        let lg = this.generaleService.activeLanguage.getValue()
+        //this.router.url.split('/')[2] != 'article' &&
+        if (text != '') {
+          this.router.navigate(['/' + lg + '/search'], {
+            queryParams: { q: text },
+          })
+        } else this.router.navigate(['/' + lg + '/article'])
       })
   }
 
