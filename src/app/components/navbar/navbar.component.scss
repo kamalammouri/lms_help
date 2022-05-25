@@ -23,3 +23,13 @@
     justify-content: center !important;
     transition: all 0.5s;
 }
+
+.lgBtn{
+    border-radius:50%;
+    width:35px;
+    height:35px;
+    border: none;
+    background-color: var(--mbtSecondary) !important;
+    color: #2b2b2bbd !important;
+    cursor: pointer;
+}

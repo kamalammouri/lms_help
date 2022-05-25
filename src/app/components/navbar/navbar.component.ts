@@ -1,29 +1,29 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { GeneraleService } from 'src/app/services/generale.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    //input lungage change
-  @Output() languageChange = new EventEmitter<string>();
-
+  activeLg:string='';
   constructor(
     public translate: TranslateService,
-    private generaleService:GeneraleService) { }
+    private generaleService:GeneraleService,
+    ) { 
+      
+    }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    this.generaleService.activeLanguage.subscribe(lang => {
+      this.activeLg = lang;
+    });
   }
-
-  changeLanguage(language: string): void {
-    // console.log('language',language);
-    this.generaleService.changeLanguage.next(language);
-  }
-
+  
   translateLanguageTo(lang: string) {
-    this.translate.use(lang);
-    console.log('language',lang);
+    this.generaleService.translateLanguageTo(lang);
   }
 }

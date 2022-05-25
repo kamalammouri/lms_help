@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 import { HomeComponent } from './components/home/home.component';
-import { SearchComponent } from './components/search/search.component';
 
 export const routes: Routes = [
-  { path:  "",                       redirectTo:"/home", pathMatch: "full"},
-  { path:  "home",                          component:HomeComponent},
-  { path:  "home/:langue",                  component:HomeComponent},
-  { path:  "search",                        component:SearchComponent},
-  { path:  "search/:langue",                component:SearchComponent},
-  { path:  "search/:langue/:search",        component:SearchComponent},
+  { path:  "search/:lg/:params",                 component:HomeComponent},
+  { path:  "article/:lg/:id",                    component:ArticleDetailsComponent},
+  { path:  "search",                        redirectTo:"/search/fr/params?value=", pathMatch: "full"},
+  { path:  "**",                            redirectTo:"/article/fr/1", pathMatch: "full"},
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

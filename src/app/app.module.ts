@@ -10,6 +10,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContactComponent } from './components/contact/contact.component';
+import { ArticleComponent } from './components/article/article.component';
+import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,7 +24,9 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     HomeComponent,
     NavbarComponent,
     SearchComponent,
-    ContactComponent
+    ContactComponent,
+    ArticleComponent,
+    ArticleDetailsComponent
   ],
   imports: [
     BrowserModule,

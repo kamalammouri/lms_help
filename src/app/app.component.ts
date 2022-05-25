@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { GeneraleService } from './services/generale.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,16 +11,16 @@ import { GeneraleService } from './services/generale.service';
 export class AppComponent {
   title = 'helplms';
 
-    
   constructor(
     public translate: TranslateService,
-    private generaleService:GeneraleService
   ){
     // Register translation languages
-    translate.addLangs(['en', 'es', 'fr']);
+    translate.addLangs(['en', 'de', 'fr']);
     // Set default language
     translate.setDefaultLang('fr');
   } 
+
+
 
 }
 
