@@ -16,8 +16,6 @@ import { distinctUntilChanged } from 'rxjs/operators'
 })
 export class AppComponent {
   title = 'helplms'
-  routeParams: any = {}
-  queryParams: any = {}
   langs = ['en', 'de', 'fr']
   constructor(
     public translate: TranslateService,
