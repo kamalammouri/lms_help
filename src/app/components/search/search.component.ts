@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
-        filter((res: any) => res.q != undefined || res.f != undefined),
+        filter((res: any) => res.q != undefined),
         distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
       )
       .subscribe((res) => {

@@ -10,10 +10,15 @@ import { GeneraleService } from 'src/app/services/generale.service'
 })
 export class ArticleComponent implements OnInit {
   topArticles$ = new BehaviorSubject<any>([])
+  activeLg: string = ''
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
   ) {
+    this.generaleService.activeLanguage.subscribe(
+      (lang) => (this.activeLg = lang)
+    )
+    
     /* generaleService
       .getTopArticles()
       .subscribe((res) => this.topArticles$.next(res)) */
