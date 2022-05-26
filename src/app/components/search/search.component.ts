@@ -25,8 +25,11 @@ export class SearchComponent implements OnInit, OnDestroy {
         distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
       )
       .subscribe((res) => {
-        this.searchTerm$.next(res.q)
-        if (res.q == '') this.router.navigate(['/'])
+        if (res.q == '') {
+          this.router.navigate(['/'])
+        }else{
+          this.searchTerm$.next(res.q)
+        }
       })
 
     this.subSearch = this.searchTerm$

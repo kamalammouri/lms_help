@@ -4,22 +4,21 @@
     }
 
     .search input{
-     height: 40px;
-     text-indent: 25px;
-     border: 2px solid #d6d4d4;
+        height: 40px;
+        text-indent: 25px;
+        border: 2px solid #d6d4d4;
     }
 
 
     .search input:focus{
-     box-shadow: none;
-     border: 2px solid blue;
+        box-shadow: none;
+        border: 2px solid var(--mbtPrimary);
     }
 
     .search .fa-search{
-
-     position: absolute;
-     top: 12.5px;
-     left: 16px;
+        position: absolute;
+        top: 12.5px;
+        left: 16px;
 
     }
     .search button{

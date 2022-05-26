@@ -1,14 +1,13 @@
 <div class="container-fluid">
-  <div class="row align-items-center justify-content-between mt-5">
+  <div class="row align-items-center justify-content-between">
     <div class="col-3 text-center">
       <h2>{{'TITLE' | translate}}</h2>
     </div>
     
     <div class="col-7 p-0 m-0">
-      <div class="search w-75 me-auto">
+      <div class="search w-50 me-auto">
         <i class="fa fa-search"></i>
-        <input type="text" class="form-control" placeholder="Have a question? Ask Now" #searhInput [value]="searchTerm$.getValue()" (keyup)="searchTerm$.next(searhInput.value)">
-        <button class="btn mbt-primary">Search</button>
+        <input type="search" id="search" class="form-control" placeholder="Have a question? Ask Now" #searhInput [value]="searchTerm$.getValue()" (keyup)="searchTerm$.next(searhInput.value)">
       </div>
   
     </div>
