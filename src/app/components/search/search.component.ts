@@ -28,21 +28,22 @@ export class SearchComponent implements OnInit, OnDestroy {
         if (res.q == '') {
           this.router.navigate(['/'])
         }else{
-          this.searchTerm$.next(res.q)
+          // this.searchTerm$.next(res.q)
+          this.searchTerm$.next(res);
         }
       })
 
     this.subSearch = this.searchTerm$
       .pipe(
-        filter(text => text != null),
-        debounceTime(500), 
+        filter((quParms:any)=> quParms?.q != null),
+        debounceTime(700), 
         distinctUntilChanged())
-      .subscribe((text) => {
+      .subscribe((quParms) => {
         let lg = this.generaleService.activeLanguage.getValue()
-        //this.router.url.split('/')[2] != 'article' &&
-        if (text != '') {
+        if (quParms.q != '') {
+          this.queryParams = quParms;
           this.router.navigate(['/' + lg + '/search'], {
-            queryParams: { q: text },
+            queryParams: { q : quParms?.q , f : quParms?.f },
           })
         } else this.router.navigate(['/' + lg + '/article'])
       })
@@ -52,5 +53,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subQueryparams.unsubscribe()
     this.subSearch.unsubscribe()
+  }
+
+  onSearch(searchTerm: string) {
+    let obj:any ={ q:searchTerm, f:''}  
+    this.searchTerm$.next(obj);
   }
 }
