@@ -1,11 +1,5 @@
 {
     "TITLE": "Herzlich willkommen",
-    "USER_INFO":{
-        "NAME":"Name",
-        "WORKING_PROFILE":"Working Profile",
-        "ADDRESS_DETAILS":"Address Details",
-        "PHONE_NUMBER":"Phone Number",
-        "EMAIL_ADDRESS":"Email Address",
-        "RELEVANT_EXPERIENCE":"Relevant Experience"
-    }
+    "Avoir une question? Demande maintenant": "Eine Frage haben? Frag jetzt",
+    "Manual de formation": "Trainingshandbuch"
 }

@@ -1,11 +1,5 @@
 {
     "TITLE": "Bienvenue",
-    "USER_INFO":{
-        "NAME":"Nom",
-        "WORKING_PROFILE":"Profil de travail",
-        "ADDRESS_DETAILS":"Détails de l'adresse",
-        "PHONE_NUMBER":"Numéro de téléphone",
-        "EMAIL_ADDRESS":"Adresse e-mail",
-        "RELEVANT_EXPERIENCE":"Expérience pertinente"
-    }
+    "Avoir une question? Demande maintenant": "Avoir une question? Demande maintenant",
+    "Manual de formation": "Manual de formation"
 }
