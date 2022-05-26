@@ -1,13 +1,18 @@
-<div class="row">
-    <span>
-        <i class="fad fa-search"></i>
-    </span>
-    <span></span>
-    <span></span>
-
+<div class="row d-flex align-items-center">
+    <div class="col-12 mt-2 border-bottom pb-2">
+        <span class="p-1 mx-3 text-muted" [class.active]="true">
+            <i class="fas fa-search"></i> Tous
+        </span>
+        <span class="p-1 mx-3 text-muted" >
+            <i class="far fa-image"></i> Image
+        </span>
+        <span class="p-1 mx-3 text-muted">
+            <i class="far fa-play-circle"></i> Vidéo
+        </span>
+    </div>
 </div>
-<div class="row">
-    <div class="col">
+<div class="row mt-4">
+    <div class="col-12">
         <pre>
             {{routeParams | json}}
         </pre>
