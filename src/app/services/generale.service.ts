@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs'
   providedIn: 'root',
 })
 export class GeneraleService {
-  activeLanguage = new BehaviorSubject<string>('')
+  activeLanguage = new BehaviorSubject<string>('fr')
   activeUrl = new BehaviorSubject<string>('')
   routeParams: any = new BehaviorSubject<any>(null)
   navigateTo: any = null

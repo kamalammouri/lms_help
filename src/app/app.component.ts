@@ -45,7 +45,7 @@ export class AppComponent {
       let url: string = lg + '/' + this.router.url.split('/').splice(2).join('/')
       console.log('url',url);
       
-      this.router.navigateByUrl(url);
+      // this.router.navigateByUrl(url);
     })
   }
 }
