@@ -8,6 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core'
 import { GeneraleService } from './services/generale.service'
 import { Location } from '@angular/common'
+import { distinctUntilChanged } from 'rxjs/operators'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,7 +30,7 @@ export class AppComponent {
     // Set default language
     this.router.events.subscribe((event: any) => {
       if (event instanceof ActivationEnd) {
-        // console.log('lng',event.snapshot.params['lg']);
+        console.log('lng',event.snapshot);
         if (
           event.snapshot.params['lg'] &&
           this.langs.includes(event.snapshot.params['lg'])
@@ -41,9 +42,12 @@ export class AppComponent {
           this.generaleService.activeLanguage.next('fr')
         }
       }
-
-      if (event instanceof NavigationEnd)
-        this.generaleService.activeUrl.next(event.url)
+    })
+    this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
+      let url: string = lg + '/' + this.router.url.split('/').splice(2).join('/')
+      console.log('url',url);
+      
+      this.router.navigateByUrl(url);
     })
   }
 }
