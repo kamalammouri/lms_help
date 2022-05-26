@@ -21,29 +21,28 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
-        filter((res: any) => res.q != undefined),
+        filter((res: any) => res.q != undefined || res.f != undefined),
         distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
       )
       .subscribe((res) => {
         if (res.q == '') {
           this.router.navigate(['/'])
         }else{
-          // this.searchTerm$.next(res.q)
-          this.searchTerm$.next(res);
+          this.searchTerm$.next(res.q)
         }
       })
 
     this.subSearch = this.searchTerm$
       .pipe(
-        filter((quParms:any)=> quParms?.q != null),
-        debounceTime(700), 
+        filter(text => text != null),
+        debounceTime(500), 
         distinctUntilChanged())
-      .subscribe((quParms) => {
-        let lg = this.generaleService.activeLanguage.getValue()
-        if (quParms.q != '') {
-          this.queryParams = quParms;
+      .subscribe((text) => {
+        let lg = this.generaleService.activeLanguage.getValue();
+        if (text != '') {
           this.router.navigate(['/' + lg + '/search'], {
-            queryParams: { q : quParms?.q , f : quParms?.f },
+            queryParams: { q: text } ,
+            queryParamsHandling: 'merge',
           })
         } else this.router.navigate(['/' + lg + '/article'])
       })
@@ -53,10 +52,5 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subQueryparams.unsubscribe()
     this.subSearch.unsubscribe()
-  }
-
-  onSearch(searchTerm: string) {
-    let obj:any ={ q:searchTerm, f:''}  
-    this.searchTerm$.next(obj);
   }
 }

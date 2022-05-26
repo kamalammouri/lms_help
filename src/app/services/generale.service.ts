@@ -18,14 +18,6 @@ export class GeneraleService {
 
   //http://localhost:4200/fr/search?q=mot_de_pass&f=video
 
-  translateLanguageTo(lang: string, redirectTo: boolean = false) {
-    if(this.langs.includes(lang)){
-     this.translateLanguage(lang,redirectTo);
-    }else{
-      this.translateLanguage('fr',redirectTo);
-    }
-  }
-
   translateLanguage(lang: string,redirectTo: boolean = false) {
     this.translate.use(lang)
     this.activeLanguage.next(lang)

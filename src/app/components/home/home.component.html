@@ -1,17 +1,17 @@
 <div class="row d-flex align-items-center">
     <div class="col-12 border-bottom pb-2">
-        <span class="p-1 mx-3 text-muted cursor-pointer filterBtn" [class.FilterActive]="true">
-            <i class="fas fa-search"></i> Tout
-        </span>
-        <span class="p-1 mx-3 text-muted cursor-pointer filterBtn">
-            <i class="far fa-image"></i> Images
-        </span>
-        <span class="p-1 mx-3 text-muted cursor-pointer filterBtn">
-            <i class="far fa-play-circle"></i> Vidéos
-        </span>
-        <span class="p-1 mx-3 text-muted cursor-pointer filterBtn">
-            <i class="far fa-file-alt"></i> Documents
-        </span>
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: undefined}">
+            <i class="fas fa-search pe-1"></i> Tout
+        </a>
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: 'img'}">
+            <i class="far fa-image pe-1"></i> Images
+        </a>
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'" queryParamsHandling="merge" [queryParams]="{f: 'vid'}">
+            <i class="far fa-play-circle pe-1"></i> Vidéos
+        </a>
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'" queryParamsHandling="merge" [queryParams]="{f: 'doc'}">
+            <i class="far fa-file-alt pe-1"></i> Documents
+        </a>
     </div>
 </div>
 <div class="row mt-4">

@@ -7,7 +7,7 @@
     <div class="col-7 p-0 m-0">
       <div class="search w-50 me-auto">
         <i class="fa fa-search"></i>
-        <input type="search" id="search" class="form-control" placeholder="Have a question? Ask Now" #searhInput [value]="queryParams?.q || null" (keyup)="onSearch(searhInput.value)">
+        <input type="search" id="search" class="form-control" placeholder="Have a question? Ask Now" #searhInput [value]="searchTerm$.getValue()" (keyup)="searchTerm$.next(searhInput.value)">
       </div>
   
     </div>

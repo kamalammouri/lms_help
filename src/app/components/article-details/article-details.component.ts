@@ -8,25 +8,12 @@ import { GeneraleService } from 'src/app/services/generale.service';
 })
 export class ArticleDetailsComponent implements OnInit {
 
-  routeParams: any = {};
-  queryParams:any = {};
-  langs=['en', 'de', 'fr'];
+  routeParams: any = {}
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService:GeneraleService)  { }
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe((res:any) => {
-      if(res){
-        this.routeParams=res;
-        if(this.langs.includes(res.lg)){
-          this.generaleService.translateLanguageTo(res.lg);
-        }else{
-          this.generaleService.translateLanguageTo('fr',true);
-        }
-      }
-    });
-
   }
 
 }
