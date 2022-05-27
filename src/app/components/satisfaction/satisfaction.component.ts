@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./satisfaction.component.scss']
 })
 export class SatisfactionComponent implements OnInit {
-
-  constructor() { }
+  satisfyed:boolean;
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.satisfyed = null;
+  }
+
+  review(satisfy:boolean){
+    this.satisfyed = satisfy;
   }
 
 }

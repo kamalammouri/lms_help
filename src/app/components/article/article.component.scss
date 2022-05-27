@@ -1,11 +1,13 @@
 .articleActive{
-    background-color: rgba(208, 208, 208, 0.4);
+    background-color: rgba(208, 208, 208, 0.25);
 }
 
 .articleActive:before {
     font-family: "Font Awesome 5 Free";
     content: "\f105";
-    display: inline-block;
-    padding-right: 3px;
+    /* display: inline-block; */
+    /* padding-right: 3px; */
     font-weight: 900;
+    position: absolute;
+    left: 30px;
  }

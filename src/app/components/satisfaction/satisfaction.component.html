@@ -1,10 +1,25 @@
 <div class="row pt-5 border-top">
-    <div class="col-12 text-center mbt-primary-text">
+    <div class="col-12 text-center mbt-primary-text" *ngIf="satisfyed==null">
         <h5>{{'Cette page a-t-elle répondu à votre question ?' | translate}}</h5>
         <div class="d-flex flex-row justify-content-center align-items-center">
-            <div class="m-1 p-1 cursor-pointer"><i class="fas fa-smile text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i></div>
+            <div class="m-1 p-1 cursor-pointer" (click)="review(true)"><i class="fas fa-smile text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i></div>
             <div class="m-1 h2">-</div>
-            <div class="m-1 p-1 cursor-pointer"><i class="fas fa-frown text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i></div>
+            <div class="m-1 p-1 cursor-pointer" (click)="review(false)"><i class="fas fa-frown text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i></div>
         </div>
+    </div>
+    <div class="col-12" *ngIf="satisfyed!=null">
+        <div class="text-center mbt-primary-text" *ngIf="satisfyed; else elseBlock">
+            <p class="h6">{{'Merci pour vos commentaires.' | translate}}</p>
+        </div>
+        <ng-template #elseBlock>
+            <div class="m-auto text-left">
+                <p class="text-info mbt-primary-text">{{'Nous sommes désolés.' | translate}}</p>
+                <p class="text-light mbt-primary-text">{{"Comment pouvons-nous l'améliorer ?" | translate}}</p>
+                <div class="d-flex flex-column">
+                    <textarea class="" name="" id="" cols="30" rows="5"></textarea>
+                    <input class="btn mbt-primary px-2" type="submit" value="{{'Envoyer' | translate}}"/>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>
