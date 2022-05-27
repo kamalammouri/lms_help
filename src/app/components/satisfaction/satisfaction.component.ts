@@ -14,8 +14,8 @@ export class SatisfactionComponent implements OnInit {
     this.satisfyed = null;
   }
 
-  review(satisfy:boolean){
-    this.satisfyed = satisfy;
+  review(rep:boolean){
+    this.satisfyed = rep;
   }
 
 }

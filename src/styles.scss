@@ -8,8 +8,12 @@
     }
     
     .mbt-primary {
-        background-color: var(--mbtPrimary);
-        color: #fff ;
+        background-color: var(--mbtPrimary) !important;
+        color: #fff !important;
+    }
+    .mbt-primary:hover{
+        background-color: #591cd4 !important;
+        color: #fff !important;
     }
     .mbt-secondary {
         background-color: var(--mbtSecondary);
