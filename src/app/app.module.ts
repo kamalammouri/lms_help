@@ -12,6 +12,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContactComponent } from './components/contact/contact.component';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleDetailsComponent } from './components/article-details/article-details.component';
+import { SatisfactionComponent } from './components/satisfaction/satisfaction.component';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -26,7 +27,8 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     SearchComponent,
     ContactComponent,
     ArticleComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    SatisfactionComponent
   ],
   imports: [
     BrowserModule,
