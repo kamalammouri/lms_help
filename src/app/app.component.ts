@@ -42,8 +42,17 @@ export class AppComponent {
       }
     })
     this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
-      let url: string = lg + '/' + this.router.url.split('/').splice(2).join('/')
-      if(this.router.url.split('/').splice(2).join('/') != '') this.router.navigateByUrl(url)
+      console.log('url',this.router.url);
+      let _url:any = this.router.url.split('/')
+      if(_url.length>=2 && this.langs.includes(_url[1]) && _url[1]!=lg){
+        _url[1] = lg 
+        _url = _url.join('/')
+        this.router.navigateByUrl(_url)
+      }
+      // let url: string = lg + '/' + this.router.url.split('/').splice(2).join('/')
+      // console.log('url slice',url);
+      // if(this.router.url.split('/').splice(2).join('/') != '') this.router.navigateByUrl(url)
+      // this.router.navigateByUrl(url)
     })
   }
 }

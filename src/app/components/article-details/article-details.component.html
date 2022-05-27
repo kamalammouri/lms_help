@@ -1,5 +1,7 @@
 <div class="row mt-2 border-bottom">
     <div class="col-12">
-        {{routeParams.getValue().id}}
+        {{routeParams.id}}
+        {{routeParams.lg}}
     </div>
 </div>
+<app-satisfaction [articleId]="routeParams.id"></app-satisfaction>
