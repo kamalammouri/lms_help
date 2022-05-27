@@ -2,9 +2,13 @@
     <div class="col-12 text-center mbt-primary-text" *ngIf="satisfyed==null">
         <h5>{{'Cette page a-t-elle répondu à votre question ?' | translate}}</h5>
         <div class="d-flex flex-row justify-content-center align-items-center">
-            <div class="m-1 p-1 cursor-pointer" (click)="review(true)"><i class="fas fa-smile text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i></div>
+            <div class="m-1 p-1 cursor-pointer" (click)="review(true)">
+                <i class="fas fa-smile text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i>
+            </div>
             <div class="m-1 h2">-</div>
-            <div class="m-1 p-1 cursor-pointer" (click)="review(false)"><i class="fas fa-frown text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i></div>
+            <div class="m-1 p-1 cursor-pointer" (click)="review(false)">
+                <i class="fas fa-frown text-warning bg-dark fa-2x rounded-circle overflow-hidden border border-dark"></i>
+            </div>
         </div>
     </div>
     <div class="col-12" *ngIf="satisfyed!=null">
@@ -15,9 +19,9 @@
             <div class="m-auto text-left">
                 <p class="mbt-primary-text h6">{{'Nous sommes désolés.' | translate}}</p>
                 <p class="mbt-primary-text">{{"Comment pouvons-nous l'améliorer ?" | translate}}</p>
-                <div class="d-flex flex-column">
+                <div class="col-6 d-flex flex-column">
                     <textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>
-                    <input class="btn mbt-primary px-2 form-control" type="submit" value="{{'Envoyer' | translate}}"/>
+                    <input class="btn mbt-primary form-control with-content px-3 mt-2" type="submit" value="{{'Envoyer' | translate}}" (click)="review(true)"/>
                 </div>
             </div>
         </ng-template>
