@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="container-fluid">
             <ul class="list-unstyled">
-                <li class="m-2" *ngFor="let articleId of topArticles$ | async">
+                <li class="my-2" *ngFor="let articleId of topArticles$ | async">
                     <a class="mbt-primary-text px-2 py-1" routerLink="{{activeLg$.getValue()}}/article/{{articleId}}" [routerLinkActive]="'articleActive'">{{articleId}}</a>
                 </li>
             </ul>
