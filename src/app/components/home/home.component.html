@@ -1,16 +1,16 @@
 <div class="row d-flex align-items-center">
     <div class="col-12 border-bottom pb-2">
         <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: undefined}">
-            <i class="fas fa-search pe-1"></i> Tout
+            <i class="fas fa-search pe-1"></i> {{'Tout' | translate}}
         </a>
         <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: 'img'}">
-            <i class="far fa-image pe-1"></i> Images
+            <i class="far fa-image pe-1"></i> {{'Images' | translate}}
         </a>
         <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'" queryParamsHandling="merge" [queryParams]="{f: 'vid'}">
-            <i class="far fa-play-circle pe-1"></i> Vidéos
+            <i class="far fa-play-circle pe-1"></i> {{'Videos'| translate}}
         </a>
         <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'" queryParamsHandling="merge" [queryParams]="{f: 'doc'}">
-            <i class="far fa-file-alt pe-1"></i> Documents
+            <i class="far fa-file-alt pe-1"></i> {{'Documents'| translate}}
         </a>
     </div>
 </div>

@@ -8,12 +8,14 @@ import { GeneraleService } from 'src/app/services/generale.service';
 })
 export class ArticleDetailsComponent implements OnInit {
 
-  routeParams: any = {}
+  routeParams:any = this.activeRoute.params; 
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService:GeneraleService)  { }
 
   ngOnInit(): void {
+    console.log('routeParams',this.routeParams.getValue().id);
+    
   }
 
 }

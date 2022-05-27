@@ -3,13 +3,13 @@
         <h4 class="card-title">Title</h4>
     </div>
     <div class="card-body">
-        <p class="card-text">Body</p>
+        <div class="container-fluid">
+            <ul class="list-unstyled">
+                <li *ngFor="let articleId of topArticles$ | async" class="m-2">
+                    <a class="mbt-primary-text px-2 py-1" routerLink="{{activeLg$.getValue()}}/article/{{articleId}}" [routerLinkActive]="'articleActive'">{{articleId}}</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul>
-        <li *ngFor="let article of topArticles$ | async">
-            {{article}}
-            <a routerLink="{{activeLg$.getValue()}}/article/{{article}}" routerLinkClass="active">{{article}}</a>
-        </li>
-    </ul>
 </div>
 
