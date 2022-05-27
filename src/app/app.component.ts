@@ -43,9 +43,7 @@ export class AppComponent {
     })
     this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
       let url: string = lg + '/' + this.router.url.split('/').splice(2).join('/')
-      console.log('url',url);
-      
-      // this.router.navigateByUrl(url);
+      if(this.router.url.split('/').splice(2).join('/') != '') this.router.navigateByUrl(url)
     })
   }
 }
