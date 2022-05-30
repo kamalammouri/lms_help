@@ -42,7 +42,7 @@ export class AppComponent {
       }
     })
     this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
-      console.log('url',this.router.url);
+      // console.log('url',this.router.url);
       let _url:any = this.router.url.split('/')
       if(_url.length>=2 && this.langs.includes(_url[1]) && _url[1]!=lg){
         _url[1] = lg 

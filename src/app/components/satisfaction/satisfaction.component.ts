@@ -8,7 +8,7 @@ import { GeneraleService } from 'src/app/services/generale.service';
   styleUrls: ['./satisfaction.component.scss']
 })
 export class SatisfactionComponent implements OnInit,OnChanges {
-  satisfyed:boolean= null;
+  satisfyed:boolean;
   @Input('articleId') articleId:string;
   constructor(
     generaleService:GeneraleService,
