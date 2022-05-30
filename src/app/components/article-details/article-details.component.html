@@ -1,7 +1,12 @@
 <div class="row mt-2 border-bottom">
     <div class="col-12">
-        {{routeParams.id}}
-        {{routeParams.lg}}
+        <ng-container *ngFor="let content of articles">
+            <ng-container [ngSwitch]="content.type">
+                <app-article-description *ngSwitchCase="'description'" [articleDesc]='content'></app-article-description>
+                <app-article-video *ngSwitchCase="'video'" [articleVideo]='content'></app-article-video>
+                <app-article-document *ngSwitchCase="'document'" [articleDoc]='content'></app-article-document>
+            </ng-container>
+        </ng-container>
     </div>
 </div>
 <app-satisfaction [articleId]="routeParams.id"></app-satisfaction>

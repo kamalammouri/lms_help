@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res: any) => { if (res.q == undefined) this.searchTerm$.next(null) }),
         filter((res: any) => res.q != undefined || res.q != null),
-        distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
+        // distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
       )
       .subscribe((res: any) => {
         if (res.q == '') {

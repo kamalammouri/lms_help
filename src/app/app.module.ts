@@ -13,6 +13,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 import { SatisfactionComponent } from './components/satisfaction/satisfaction.component';
+import { ArticleVideoComponent } from './components/article-video/article-video.component';
+import { ArticleDescriptionComponent } from './components/article-description/article-description.component';
+import { ArticleDocumentComponent } from './components/article-document/article-document.component';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -28,7 +31,10 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     ContactComponent,
     ArticleComponent,
     ArticleDetailsComponent,
-    SatisfactionComponent
+    SatisfactionComponent,
+    ArticleVideoComponent,
+    ArticleDescriptionComponent,
+    ArticleDocumentComponent
   ],
   imports: [
     BrowserModule,
