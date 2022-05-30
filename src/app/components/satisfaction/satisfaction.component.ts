@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GeneraleService } from 'src/app/services/generale.service';
 
@@ -7,8 +7,8 @@ import { GeneraleService } from 'src/app/services/generale.service';
   templateUrl: './satisfaction.component.html',
   styleUrls: ['./satisfaction.component.scss']
 })
-export class SatisfactionComponent implements OnInit {
-  satisfyed:boolean;
+export class SatisfactionComponent implements OnInit,OnChanges {
+  satisfyed:boolean= null;
   @Input('articleId') articleId:string;
   constructor(
     generaleService:GeneraleService,
@@ -18,8 +18,12 @@ export class SatisfactionComponent implements OnInit {
 
   ngOnInit(): void {
     this.satisfyed = null;
-    console.log('articleId',this.articleId);
+    // console.log('articleId',this.articleId);
     
+  }
+
+  ngOnChanges(...args: any[]) {          
+    this.ngOnInit();
   }
 
   review(rep:boolean){

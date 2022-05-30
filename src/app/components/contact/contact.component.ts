@@ -45,7 +45,7 @@ export class ContactComponent implements OnInit {
     if (this.contactForm.invalid) {
       return;
     }
-    console.log(JSON.stringify(this.contactForm.value, null, 2));
+    // console.log(JSON.stringify(this.contactForm.value, null, 2));
   }
 
 }

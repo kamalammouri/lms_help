@@ -28,7 +28,7 @@ export class AppComponent {
     // Set default language
     this.router.events.subscribe((event: any) => {
       if (event instanceof ActivationEnd) {
-        console.log('lng',event.snapshot);
+        // console.log('lng',event.snapshot);
         if (
           event.snapshot.params['lg'] &&
           this.langs.includes(event.snapshot.params['lg'])

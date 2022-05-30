@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
       )
       .subscribe((text) => {
-      console.log('text',text);
+      // console.log('text',text);
       
         let lg = this.generaleService.activeLanguage.getValue()
         if (text != '') {

@@ -7,7 +7,6 @@ import { GeneraleService } from 'src/app/services/generale.service';
   styleUrls: ['./article-details.component.scss']
 })
 export class ArticleDetailsComponent implements OnInit {
-
   routeParams:any ; 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -19,7 +18,6 @@ export class ArticleDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('routeParams',this.routeParams.getValue().id);
-    
   }
 
 }
