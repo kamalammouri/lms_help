@@ -30,4 +30,9 @@ export class SatisfactionComponent implements OnInit,OnChanges {
     this.satisfyed = rep;
   }
 
+  hhh(){
+    console.log('hhh');
+    
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, SimpleChanges } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { BehaviorSubject } from 'rxjs'
 import { GeneraleService } from 'src/app/services/generale.service'
@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators'
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit  {
   // routeParams:any = this.activeRoute.params;
   topArticles$ = new BehaviorSubject<any>([])
   activeLg$ = this.generaleService.activeLanguage
@@ -18,9 +18,12 @@ export class ArticleComponent implements OnInit {
   ) {
   }
 
+
   ngOnInit(): void {
-    this.generaleService
-      .getTopArticles()
+    let lg:string;
+    this.generaleService.activeLanguage.subscribe(res=>
+     { this.generaleService
+      .getTopArticles(res)
       .pipe(
         tap((res: any) => {
           if (res.data.session_id == null) {
@@ -29,6 +32,8 @@ export class ArticleComponent implements OnInit {
             })
           }
         }),
-      ).subscribe((res) => this.topArticles$.next(res.data.topArticles))
+      ).subscribe((res) => this.topArticles$.next(res.data.topArticles))});
+   
   }
+
 }
