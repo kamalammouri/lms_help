@@ -18,7 +18,9 @@ import { ArticleDescriptionComponent } from './components/article-description/ar
 import { ArticleDocumentComponent } from './components/article-document/article-document.component';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  
+  
 }
 
 

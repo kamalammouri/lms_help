@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
@@ -12,6 +13,9 @@ export class GeneraleService {
   routeParams: any = new BehaviorSubject<any>(null)
   navigateTo: any = null
   langs = ['en', 'de', 'fr']
-  constructor(private router: Router, public translate: TranslateService) {}
+  constructor(private router: Router, public translate: TranslateService,private httpClient: HttpClient) {}
 
+  getTopArticles(){
+    return this.httpClient.get('api/'+this.activeLanguage.getValue()+'/toparticles');
+  }
 }
