@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <div class="row align-items-center justify-content-between">
-        <div class="col-3 text-center">
+        <div class="col-lg-3 col-sm-12 text-center">
             <h2>{{'TITLE' | translate}}</h2>
         </div>
 
-        <div class="col-7 p-0 m-0">
-            <div class="search w-50 me-auto">
+        <div class="col-lg-7 col-md-12 p-0 m-0 mt-2">
+            <div class="search w-50 m-auto">
                 <i class="fa fa-search"></i>
                 <input type="search" id="search" class="form-control" placeholder="{{'Avoir une question? Demande maintenant' | translate}}" #searhInput [value]="searchTerm$.getValue()" (input)="searchTerm$.next(searhInput.value)">
             </div>
@@ -18,7 +18,7 @@
       </button>
     </div> -->
 
-        <div class="col-2 btnManuel">
+        <div class="col-lg-2 col-md-12 btnManuel text-center mt-2">
             <button class="btn mbt-primary h-100 box-shadow text-nowrap">
         <img src="https://img.icons8.com/officel/16/000000/export-pdf.png"/>
         {{'Manual de formation' | translate}}
