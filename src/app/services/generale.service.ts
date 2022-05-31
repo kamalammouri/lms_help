@@ -16,6 +16,16 @@ export class GeneraleService {
   constructor(private router: Router, public translate: TranslateService,private httpClient: HttpClient) {}
 
   getTopArticles(){
-    return this.httpClient.get('api/'+this.activeLanguage.getValue()+'/toparticles');
+    // console.log('api/'+this.activeLanguage.getValue()+'/topArticles');
+    return this.httpClient.get('/api/lmshelp/'+this.activeLanguage.getValue()+'/topArticles');
+  }
+
+  getArticleChilde(code: string,increment:boolean = null){
+    // console.log('api/'+this.activeLanguage.getValue()+'/topArticles');
+    return this.httpClient.get('/api/lmshelp/'+this.activeLanguage.getValue()+'/getArticle/'+code+'/'+increment);
+  }
+
+  makeSession(){
+    return this.httpClient.get('/api/lmshelp/createSession');
   }
 }

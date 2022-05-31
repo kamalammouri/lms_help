@@ -1,42 +1,108 @@
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+
   "version": "2.0.0",
+
   "tasks": [
-    {
-      "type": "npm",
-      "script": "start",
-      "isBackground": true,
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "(.*?)"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation complete"
-          }
-        }
+
+      {
+
+          "type": "shell",
+
+          "label": "build edc",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Edc/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build vdt",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Vdt/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build ave",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Ave/public/app --base-href=/app/"
+
+      },
+      {
+
+          "type": "shell",
+
+          "label": "build abrifeu",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Abrifeu/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build mobiletic",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Mobiletic/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build btee",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Btee/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build gs",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Gs/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build archives",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Archives/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build edt",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Edt/public/app --base-href=/app/"
+
+      },
+
+      {
+
+          "type": "shell",
+
+          "label": "build buchard",
+
+          "command": "ng build --watch --output-path=C:/xampp/htdocs/app/themes/Buchard/public/app --base-href=/app/"
+
       }
-    },
-    {
-      "type": "npm",
-      "script": "test",
-      "isBackground": true,
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "(.*?)"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation complete"
-          }
-        }
-      }
-    }
+
   ]
+
 }

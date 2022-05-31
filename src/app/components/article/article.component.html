@@ -5,8 +5,8 @@
     <div class="card-body px-0">
         <div class="container-fluid">
             <ul class="list-unstyled">
-                <li class="my-2" *ngFor="let articleId of topArticles$ | async">
-                    <a class="mbt-primary-text px-2 py-1" routerLink="{{activeLg$.getValue()}}/article/{{articleId}}" [routerLinkActive]="'articleActive'">{{articleId}}</a>
+                <li class="my-2" *ngFor="let article of topArticles$ | async">
+                    <a class="mbt-primary-text px-2 py-1" routerLink="{{activeLg$.getValue()}}/article/{{article?.code}}" [routerLinkActive]="'articleActive'">{{article?.label}}</a>
                 </li>
             </ul>
         </div>
