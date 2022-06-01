@@ -22,6 +22,7 @@ export class ArticleDetailsComponent implements OnInit {
       .pipe(
       ).subscribe((params:any) => {
         this.routeParams = params
+        // console.log('ArticleDetailsComponent',params);
       })
 
     this.generaleService.activeLanguage.subscribe((res) => {

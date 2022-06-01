@@ -19,7 +19,6 @@ export class ArticleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let lg: string
     this.generaleService.activeLanguage.subscribe((lang: string) => {
       this.generaleService
         .getTopArticles(lang)
