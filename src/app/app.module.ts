@@ -17,10 +17,12 @@ import { ArticleVideoComponent } from './components/article-video/article-video.
 import { ArticleDescriptionComponent } from './components/article-description/article-description.component';
 import { ArticleDocumentComponent } from './components/article-document/article-document.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
+
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-  
-  
 }
 
 
@@ -36,9 +38,11 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     SatisfactionComponent,
     ArticleVideoComponent,
     ArticleDescriptionComponent,
-    ArticleDocumentComponent
+    ArticleDocumentComponent,
+    PdfViewerComponent
   ],
   imports: [
+    PdfViewerModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -54,3 +58,4 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+platformBrowserDynamic().bootstrapModule(AppModule);
