@@ -19,21 +19,20 @@ export class ArticleDetailsComponent implements OnInit {
     private generaleService: GeneraleService,
   ) {
     this.activeRoute.params
-      .pipe
+      .pipe(
       // tap((res:any) => {
       //   if(Object.keys(res).length<=1){
       //     res.lg && this.langs.includes(res.lg)?this.router.navigateByUrl('/'+res.lg+'/article/2'):this.router.navigateByUrl('/fr/article/2')
       //   }
       // })
-      ()
-      .subscribe((params) => {
+      ).subscribe((params:any) => {
         this.routeParams = params
       })
 
     let lg: string
-    this.generaleService.activeLanguage.pipe(distinctUntilChanged(),filter((res:any) => res !=null)).subscribe((res) => {
+    this.generaleService.activeLanguage.pipe(filter((res:any) => res !=null)).subscribe((res) => {
       this.article={};
-      this.satisfaction?.hhh();
+      this.satisfaction?.inistialize();
       this.generaleService
         .getArticleChilde(res, this.routeParams.id)
         .subscribe((res: any) => (this.article = res.data));

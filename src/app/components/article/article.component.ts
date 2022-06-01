@@ -1,39 +1,45 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject } from 'rxjs'
 import { GeneraleService } from 'src/app/services/generale.service'
-import { tap } from 'rxjs/operators'
+import { filter, take, tap,distinctUntilChanged } from 'rxjs/operators'
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit  {
+export class ArticleComponent implements OnInit {
   // routeParams:any = this.activeRoute.params;
   topArticles$ = new BehaviorSubject<any>([])
   activeLg$ = this.generaleService.activeLanguage
   constructor(
+    private router: Router,
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
-  ) {
-  }
-
+  ) {}
 
   ngOnInit(): void {
-    let lg:string;
-    this.generaleService.activeLanguage.subscribe(res=>
-     { this.generaleService
-      .getTopArticles(res)
-      .pipe(
-        tap((res: any) => {
-          if (res.data.session_id == null) {
-            this.generaleService.makeSession().subscribe((res) => {
-              // console.log('makeSession', res)
-            })
-          }
-        }),
-      ).subscribe((res) => this.topArticles$.next(res.data.topArticles))});
-   
+    let lg: string
+    this.generaleService.activeLanguage.subscribe((lang: string) => {
+      this.generaleService
+        .getTopArticles(lang)
+        .pipe(
+          tap((res: any) => {
+            if (res.data.session_id == null) {
+              this.generaleService.makeSession().subscribe((res) => {
+                // console.log('makeSession', res)
+              })
+            }
+          }),
+        )
+        .pipe(
+          // take(1),
+          // tap((fristElm) => {
+          //   // this.router.navigateByUrl(`/${lang}/article/${fristElm.data.id}`)
+          //   console.log('fristElm', fristElm);
+          // }),
+        )
+        .subscribe((res) => this.topArticles$.next(res.data.topArticles))
+    })
   }
-
 }

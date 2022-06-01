@@ -7,7 +7,7 @@ import { GeneraleService } from 'src/app/services/generale.service';
   templateUrl: './satisfaction.component.html',
   styleUrls: ['./satisfaction.component.scss']
 })
-export class SatisfactionComponent implements OnInit,OnChanges {
+export class SatisfactionComponent implements OnInit {
   satisfyed:boolean;
   @Input('articleId') articleId:string;
   constructor(
@@ -22,16 +22,12 @@ export class SatisfactionComponent implements OnInit,OnChanges {
     
   }
 
-  ngOnChanges(...args: any[]) {          
-    this.ngOnInit();
-  }
-
   review(rep:boolean){
     this.satisfyed = rep;
   }
 
-  hhh(){
-    console.log('hhh');
+  inistialize(){
+    this.ngOnInit();
     
   }
 

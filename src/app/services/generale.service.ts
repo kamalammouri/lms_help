@@ -69,11 +69,10 @@ export class GeneraleService {
     return this.httpClient.get('/api/lmshelp/' + lg + '/topArticles')
   }
 
-  getArticleChilde(lg:string ,code: string, increment: boolean = null) {
+  getArticleChilde(lg:string ,code: string, increment:boolean = null) {
     // console.log(lg + 'getArticleChilde ' + code)
-    return this.httpClient.get(
-      '/api/lmshelp/' + lg + '/getArticle/' + code + '/' + increment,
-    )
+    let artilceUrl =  increment != null ? '/api/lmshelp/' + lg + '/getArticle/' + code + '/' + increment : '/api/lmshelp/' + lg + '/getArticle/' + code;
+    return this.httpClient.get( artilceUrl )
   }
 
   makeSession() {
