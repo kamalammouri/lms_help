@@ -12,7 +12,7 @@ export class ArticleDetailsComponent implements OnInit {
   routeParams: any
   langs = ['en', 'de', 'fr']
   article: any = {}
-  @ViewChild('satisfaction') satisfaction:SatisfactionComponent;
+  @ViewChild('satisfactionComp') satisfactionComp:SatisfactionComponent;
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
@@ -24,10 +24,9 @@ export class ArticleDetailsComponent implements OnInit {
         this.routeParams = params
       })
 
-    let lg: string
     this.generaleService.activeLanguage.subscribe((res) => {
       this.article={};
-      this.satisfaction?.inistialize();
+      this.satisfactionComp?.inistialize();
       this.generaleService
         .getArticleChilde(res, this.routeParams.id)
         .subscribe((res: any) => (this.article = res.data));
