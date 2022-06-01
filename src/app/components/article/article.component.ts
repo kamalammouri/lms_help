@@ -24,10 +24,10 @@ export class ArticleComponent implements OnInit {
         .getTopArticles(lang)
         .pipe(
           distinctUntilChanged(),
+          filter((res: any) => res?.data != null),
           tap((res: any) => { 
             if (res.data.session_id == null) this.generaleService.makeSession();
           }),
-          filter((res: any) => res?.data != null),
         )
         .subscribe((res:any) => {
           this.topArticles$.next(res.data.topArticles)
