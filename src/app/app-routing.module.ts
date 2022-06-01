@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path:  ":lg/article",                    component:ArticleDetailsComponent},
   { path:  ":lg/article/:id",                    component:ArticleDetailsComponent},
   { path:  "search",                        redirectTo:"fr/search", pathMatch: "full"},
-  { path:  "**",                            redirectTo:"fr/article/first", pathMatch: "full"},
+  { path:  "**",                            redirectTo:"fr/article", pathMatch: "full"},
   // { path:  ":lg",                     redirectTo:"de/article", pathMatch: "full"},
 ]
 @NgModule({

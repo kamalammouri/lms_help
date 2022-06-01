@@ -27,8 +27,12 @@ export class ArticleComponent implements OnInit {
           tap((res: any) => { 
             if (res.data.session_id == null) this.generaleService.makeSession();
           }),
+          filter((res: any) => res?.data != null),
         )
-        .subscribe((res) => this.topArticles$.next(res.data.topArticles))
+        .subscribe((res:any) => {
+          this.topArticles$.next(res.data.topArticles)
+          this.generaleService.fristArticle.next(res.data.topArticles[0]?.code)
+        })
     })
   }
 }
