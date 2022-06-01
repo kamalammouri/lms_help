@@ -46,7 +46,7 @@ export class GeneraleService {
     })
     this.activeLanguage
       .pipe(
-        distinctUntilChanged(),
+        // distinctUntilChanged(),
         filter((res: any) => res != null),
       )
       .subscribe((lg: string) => {

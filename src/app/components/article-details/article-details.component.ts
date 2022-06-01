@@ -20,17 +20,12 @@ export class ArticleDetailsComponent implements OnInit {
   ) {
     this.activeRoute.params
       .pipe(
-      // tap((res:any) => {
-      //   if(Object.keys(res).length<=1){
-      //     res.lg && this.langs.includes(res.lg)?this.router.navigateByUrl('/'+res.lg+'/article/2'):this.router.navigateByUrl('/fr/article/2')
-      //   }
-      // })
       ).subscribe((params:any) => {
         this.routeParams = params
       })
 
     let lg: string
-    this.generaleService.activeLanguage.pipe(filter((res:any) => res !=null)).subscribe((res) => {
+    this.generaleService.activeLanguage.subscribe((res) => {
       this.article={};
       this.satisfaction?.inistialize();
       this.generaleService
