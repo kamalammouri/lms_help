@@ -1,8 +1,11 @@
 <div class="mt-3 mb-2">
     <p>article-document works!</p>
     <div class="col-12">
-        <i class="far fa-file-pdf">
-            <a [href]="articleDoc?.uri" target="_blank"></a>
-        </i>
+        <a routerLink="pdf{{articleDoc?.uri}}" target="_blank"> 
+            <i class="far fa-file-pdf"></i>
+        </a>
     </div>
 </div>
+<pre>
+    pdf{{articleDoc?.uri}}
+</pre>
