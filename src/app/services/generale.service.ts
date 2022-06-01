@@ -37,7 +37,7 @@ export class GeneraleService {
         ) {
           translate.setDefaultLang(event.snapshot.params['lg'])
           this.activeLanguage.next(event.snapshot.params['lg'])
-          console.log('activeLg', this.activeLanguage.getValue())
+          // console.log('activeLg', this.activeLanguage.getValue())
         } else {
           translate.setDefaultLang('fr')
           this.activeLanguage.next('fr')
@@ -46,31 +46,27 @@ export class GeneraleService {
     })
     this.activeLanguage
       .pipe(
-        // distinctUntilChanged(),
+        distinctUntilChanged(),
         filter((res: any) => res != null),
       )
       .subscribe((lg: string) => {
-        // console.log('url',this.router.url);
         let _url: any = this.router.url.split('/')
-        if (_url.length >= 2 && this.langs.includes(_url[1]) && _url[1] != lg) {
+        if (_url.length >= 2 && this.langs.includes(_url[1])) {
           _url[1] = lg
-          _url = _url.join('/')
-          this.router.navigateByUrl(_url)
+        }else{
+          _url[1] = 'fr'
         }
-        // let url: string = lg + '/' + this.router.url.split('/').splice(2).join('/')
-        // console.log('url slice',url);
-        // if(this.router.url.split('/').splice(2).join('/') != '') this.router.navigateByUrl(url)
-        // this.router.navigateByUrl(url)
+        // console.log('_url',_url);
+        _url = _url.join('/')
+        this.router.navigateByUrl(_url)
       })
   }
 
   getTopArticles(lg:string) {
-    // console.log('getTopArticles/' + lg + '/topArticles')
     return this.httpClient.get('/api/lmshelp/' + lg + '/topArticles')
   }
 
   getArticleChilde(lg:string ,code: string, increment:boolean = null) {
-    // console.log(lg + 'getArticleChilde ' + code)
     let artilceUrl =  increment != null ? '/api/lmshelp/' + lg + '/getArticle/' + code + '/' + increment : '/api/lmshelp/' + lg + '/getArticle/' + code;
     return this.httpClient.get( artilceUrl )
   }

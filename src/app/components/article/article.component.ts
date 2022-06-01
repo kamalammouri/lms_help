@@ -33,11 +33,9 @@ export class ArticleComponent implements OnInit {
           }),
         )
         .pipe(
-          // take(1),
-          // tap((fristElm) => {
-          //   // this.router.navigateByUrl(`/${lang}/article/${fristElm.data.id}`)
-          //   console.log('fristElm', fristElm);
-          // }),
+          tap((res: any) => {
+            this.activeRoute.params.subscribe((params: any) => {})
+          })
         )
         .subscribe((res) => this.topArticles$.next(res.data.topArticles))
     })
