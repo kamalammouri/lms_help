@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeneraleService } from 'src/app/services/generale.service';
 import { Subscription } from 'rxjs';
@@ -8,10 +8,10 @@ import { filter } from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit , OnDestroy {
   routeParams: any = {};
   queryParams:any = {};
-  subQueryparams: Subscription
+  subQueryparams$: Subscription
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService:GeneraleService,
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       //     }
       //   }
       // });
-      this.subQueryparams = this.activeRoute.queryParams.pipe(filter((query:any) => query.q != null)).subscribe(res => this.queryParams=res);
+      this.subQueryparams$ = this.activeRoute.queryParams.pipe(filter((query:any) => query.q != null)).subscribe(res => this.queryParams=res);
     }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subQueryparams.unsubscribe();
+    this.subQueryparams$.unsubscribe();
   }
 
 }

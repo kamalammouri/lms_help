@@ -20,7 +20,7 @@
 
         "label": "build lmshelp",
 
-        "command": " ng build --watch --output-path=C:/xampp/htdocs/app/themes/Mobiletic/public/lmshelp --base-href=/lmshelp/"
+        "command": " ng build --watch --output-path=C:/xampp/htdocs/app/themes/Mobiletic/public/lmshelp --base-href=/lmshelp/ --configuration=development"
 
     },
     

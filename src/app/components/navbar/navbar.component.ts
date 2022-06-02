@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { GeneraleService } from 'src/app/services/generale.service'
 @Component({
@@ -6,7 +6,7 @@ import { GeneraleService } from 'src/app/services/generale.service'
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit, OnDestroy{
+export class NavbarComponent implements OnInit{
   activeLg = this.generaleService.activeLanguage
   constructor(
     public translate: TranslateService,
@@ -15,9 +15,6 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-  }
 
   translateLanguageTo(lg: string) {
     this.generaleService.activeLanguage.next(lg);

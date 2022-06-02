@@ -15,11 +15,7 @@ import {
 })
 export class GeneraleService {
   activeLanguage = new BehaviorSubject<string>(null)
-  activeUrl = new BehaviorSubject<string>('')
   fristArticle = new BehaviorSubject<string>(null)
-  lg$: string = null
-  routeParams: any = new BehaviorSubject<any>(null)
-  navigateTo: any = null
   langs = ['en', 'de', 'fr']
   constructor(
     private router: Router,
