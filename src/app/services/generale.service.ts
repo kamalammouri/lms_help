@@ -27,7 +27,6 @@ export class GeneraleService {
     // Set default language
     this.router.events.subscribe((event: any) => {
       // console.log('event.snapshot',event);
-      console.log(event);
       if (event instanceof ActivationEnd) {
         if (
           event.snapshot.params['lg'] &&
@@ -35,7 +34,6 @@ export class GeneraleService {
         ) {
           translate.setDefaultLang(event.snapshot.params['lg'])
           this.activeLanguage.next(event.snapshot.params['lg'])
-          // console.log('activeLg', this.activeLanguage.getValue())
         } else {
           translate.setDefaultLang('fr')
           this.activeLanguage.next('fr')
