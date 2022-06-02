@@ -28,7 +28,7 @@ export class GeneraleService {
     this.changeLanguage = this.router.events.pipe(
       filter((event) => event instanceof ActivationEnd),
       switchMap((event: any) => of(event.snapshot.params['lg'])),
-      distinctUntilChanged(),
+      // distinctUntilChanged(),
       tap((lng: any) => (lng && this.langs.includes(lng) ? lng : 'fr')),
     )
 
