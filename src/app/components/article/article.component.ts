@@ -8,12 +8,12 @@ import { filter, take, tap, distinctUntilChanged } from 'rxjs/operators'
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit , OnDestroy{
+export class ArticleComponent implements OnInit, OnDestroy {
   // routeParams:any = this.activeRoute.params;
   topArticles$ = new BehaviorSubject<any>([])
   activeLg$ = this.generaleService.activeLanguage
-  subLang$ : Subscription;
-  subService$ : Subscription;
+  subLang$: Subscription
+  subService$: Subscription
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
@@ -21,13 +21,12 @@ export class ArticleComponent implements OnInit , OnDestroy{
   ) {}
 
   ngOnInit(): void {
-    this.subLang$ = this.generaleService.activeLanguage
-      .subscribe((lang: string) => {
+    this.subLang$ = this.generaleService.activeLanguage.subscribe(
+      (lang: string) => {
         this.subService$ = this.generaleService
           .getTopArticles(lang)
           .pipe(
-            distinctUntilChanged(),
-            filter((res: any) => res?.data != null),
+            filter((res: any) => res?.data?.topArticles?.length > 0),
             tap((res: any) => {
               if (res.data.session_id == null)
                 this.generaleService.makeSession()
@@ -39,7 +38,8 @@ export class ArticleComponent implements OnInit , OnDestroy{
               res.data.topArticles[0]?.code,
             )
           })
-      })
+      },
+    )
   }
 
   ngOnDestroy() {

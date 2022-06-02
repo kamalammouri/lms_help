@@ -13,7 +13,6 @@ export class ArticleDetailsComponent implements OnInit , OnDestroy {
   routeParams: any
   langs = ['en', 'de', 'fr']
   article: any = {}
-  fristArticle: any
   subLang$ : Subscription;
   subParams$ : Subscription;
   @ViewChild('satisfactionComp') satisfactionComp: SatisfactionComponent
@@ -39,7 +38,7 @@ export class ArticleDetailsComponent implements OnInit , OnDestroy {
                 )
             : null,
         ),
-        filter((params) => params?.id != null || params?.id != undefined),
+        filter((params:any) => params?.id != null || params?.id != undefined),
       )
       .subscribe((params: any) => (this.routeParams = params))
 
