@@ -43,14 +43,19 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
       )
       .subscribe((params: any) => (this.routeParams = params))
 
-    this.subLang$ = this.generaleService.activeLanguage.subscribe((res:any) => {
-      this.article = {}
-      this.satisfactionComp?.inistialize()
-      if (this.routeParams?.id)
-        this.generaleService
-          .getArticleChilde(res, this.routeParams?.id)
-          ?.subscribe((res: any) => (this.article = res.data))
-    })
+    this.subLang$ = this.generaleService.activeLanguage.subscribe(
+      (res: any) => {
+        this.article = {}
+        this.satisfactionComp?.inistialize()
+        if (this.routeParams?.id)
+          this.generaleService
+            .getArticleChilde(res, this.routeParams?.id)
+            .subscribe((res: any) => {
+              this.article = res.data
+              this.generaleService.increment.next(false)
+            })
+      },
+    )
   }
 
   ngOnDestroy() {

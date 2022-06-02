@@ -10,4 +10,6 @@
         </ng-container>
     </div>
 </div>
-<app-satisfaction #satisfactionComp [articleId]="routeParams?.id"></app-satisfaction>
+<ng-container *ngIf="article?.children?.length>0">
+    <app-satisfaction #satisfactionComp [articleId]="routeParams?.id"></app-satisfaction>
+</ng-container>
