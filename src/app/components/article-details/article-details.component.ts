@@ -33,21 +33,22 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
                   distinctUntilChanged(),
                   filter((res) => res != null),
                 )
-                .subscribe((res) =>
-                  this.router.navigateByUrl(this.router.url + '/' + res),
-                )
+                .subscribe((res) => {
+                  this.generaleService.increment.next(true)
+                  this.router.navigateByUrl(this.router.url + '/' + res)
+                })
             : null,
         ),
         filter((params: any) => params?.id != null || params?.id != undefined),
       )
       .subscribe((params: any) => (this.routeParams = params))
 
-    this.subLang$ = this.generaleService.activeLanguage.subscribe((res) => {
+    this.subLang$ = this.generaleService.activeLanguage.subscribe((res:any) => {
       this.article = {}
       this.satisfactionComp?.inistialize()
       if (this.routeParams?.id)
         this.generaleService
-          .getArticleChilde(res, this.routeParams.id)
+          .getArticleChilde(res, this.routeParams?.id)
           .subscribe((res: any) => (this.article = res.data))
     })
   }

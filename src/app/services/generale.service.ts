@@ -14,17 +14,18 @@ import {
   providedIn: 'root',
 })
 export class GeneraleService {
+  langs = ['en', 'de', 'fr']
+  increment = new BehaviorSubject<boolean>(false)
   activeLanguage = new BehaviorSubject<string>(null)
   fristArticle = new BehaviorSubject<string>(null)
-  langs = ['en', 'de', 'fr']
   changeLanguage: Observable<string>
   constructor(
     private router: Router,
     public translate: TranslateService,
     private httpClient: HttpClient,
   ) {
-    // Register translation languages
     translate.addLangs(this.langs)
+
     this.changeLanguage = this.router.events.pipe(
       filter((event) => event instanceof ActivationEnd),
       switchMap((event: any) => of(event.snapshot.params['lg'])),
@@ -55,16 +56,15 @@ export class GeneraleService {
       })
   }
 
-  getTopArticles(lg: string) {
-    return this.httpClient.get('/api/lmshelp/' + lg + '/topArticles')
+  getTopArticles(lg: string):Observable<any> {
+    return this.httpClient.get<any>('/api/lmshelp/' + lg + '/topArticles')
   }
 
-  getArticleChilde(lg: string, code: string, increment: boolean = null) {
-    let artilceUrl =
-      increment != null
-        ? '/api/lmshelp/' + lg + '/getArticle/' + code + '/' + increment
-        : '/api/lmshelp/' + lg + '/getArticle/' + code
-    return this.httpClient.get(artilceUrl)
+  getArticleChilde(lg: string, code: string):any {
+    let artilceUrl = this.increment.getValue() ? '/api/lmshelp/' + lg + '/getArticle/' + code + '/' + this.increment.getValue() : '/api/lmshelp/' + lg + '/getArticle/' + code
+    console.log('artilceUrl',artilceUrl);
+    
+    return this.httpClient.get<any>(artilceUrl) 
   }
 
   makeSession() {
