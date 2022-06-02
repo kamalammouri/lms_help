@@ -21,8 +21,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subLang$ = this.generaleService.activeLanguage.subscribe(
+    this.subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe(
       (lang: string) => {
+        this.topArticles$.next([])
         this.subService$ = this.generaleService
           .getTopArticles(lang)
           .pipe(
@@ -43,7 +44,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subService$.unsubscribe()
+    // this.subLang$.unsubscribe()
+    // this.subService$.unsubscribe()
   }
 }

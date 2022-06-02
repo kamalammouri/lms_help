@@ -9,12 +9,12 @@ import { SatisfactionComponent } from '../satisfaction/satisfaction.component'
   templateUrl: './article-details.component.html',
   styleUrls: ['./article-details.component.scss'],
 })
-export class ArticleDetailsComponent implements OnInit , OnDestroy {
+export class ArticleDetailsComponent implements OnInit, OnDestroy {
   routeParams: any
   langs = ['en', 'de', 'fr']
   article: any = {}
-  subLang$ : Subscription;
-  subParams$ : Subscription;
+  subLang$: Subscription
+  subParams$: Subscription
   @ViewChild('satisfactionComp') satisfactionComp: SatisfactionComponent
   constructor(
     private router: Router,
@@ -38,23 +38,22 @@ export class ArticleDetailsComponent implements OnInit , OnDestroy {
                 )
             : null,
         ),
-        filter((params:any) => params?.id != null || params?.id != undefined),
+        filter((params: any) => params?.id != null || params?.id != undefined),
       )
       .subscribe((params: any) => (this.routeParams = params))
 
-      this.subLang$ = this.generaleService.activeLanguage
-      .subscribe((res) => {
-        this.article = {}
-        this.satisfactionComp?.inistialize()
-        if (this.routeParams?.id)
-          this.generaleService
-            .getArticleChilde(res, this.routeParams.id)
-            .subscribe((res: any) => (this.article = res.data))
-      })
+    this.subLang$ = this.generaleService.activeLanguage.subscribe((res) => {
+      this.article = {}
+      this.satisfactionComp?.inistialize()
+      if (this.routeParams?.id)
+        this.generaleService
+          .getArticleChilde(res, this.routeParams.id)
+          .subscribe((res: any) => (this.article = res.data))
+    })
   }
 
   ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subParams$.unsubscribe()
+    // this.subLang$.unsubscribe()
+    // this.subParams$.unsubscribe()
   }
 }
