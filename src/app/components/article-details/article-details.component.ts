@@ -10,7 +10,7 @@ import { SatisfactionComponent } from '../satisfaction/satisfaction.component'
   styleUrls: ['./article-details.component.scss'],
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
-  routeParams: any
+  articleId: any
   langs = ['en', 'de', 'fr']
   article: any = {}
   subLang$: Subscription
@@ -23,11 +23,38 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subParams$ = this.activeRoute.params
+    // this.generaleService.changeUrl.subscribe((res: any) => {
+    //   console.log('resUrl', res);
+
+    // });
+    // this.subParams$ = this.activeRoute.params
+    //   .pipe(
+    //     distinctUntilChanged(),
+    //     tap((params: any) =>
+    //       params.id == null
+    //         ? this.generaleService.fristArticle
+    //             .pipe(
+    //               distinctUntilChanged(),
+    //               filter((res) => res != null),
+    //             )
+    //             .subscribe((res) => {
+    //               this.generaleService.increment.next(true)
+    //               this.router.navigateByUrl(this.router.url + '/' + res)
+    //             })
+    //         : null,
+    //     ),
+    //     filter((params: any) => params?.id != null || params?.id != undefined),
+    //   )
+    //   .subscribe((params: any) => (this.routeParams = params))
+
+    this.subParams$ = this.generaleService.articleId
       .pipe(
         distinctUntilChanged(),
-        tap((params: any) =>
-          params.id == null
+        tap((id: any) =>
+          {
+            console.log('articleId', id)
+            
+            id == null
             ? this.generaleService.fristArticle
                 .pipe(
                   distinctUntilChanged(),
@@ -37,21 +64,22 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
                   this.generaleService.increment.next(true)
                   this.router.navigateByUrl(this.router.url + '/' + res)
                 })
-            : null,
+            : null}
         ),
-        filter((params: any) => params?.id != null || params?.id != undefined),
+        filter((id: any) => id != null || id != undefined),
       )
-      .subscribe((params: any) => (this.routeParams = params))
+      .subscribe((id: any) => (this.articleId = id))
 
     this.subLang$ = this.generaleService.activeLanguage.subscribe(
-      (res: any) => {
+      (lng: any) => {
         this.article = {}
         this.satisfactionComp?.inistialize()
-        if (this.routeParams?.id)
+
+        if (this.articleId)
           this.generaleService
-            .getArticleChilde(res, this.routeParams?.id)
-            .subscribe((res: any) => {
-              this.article = res.data
+            .getArticleChilde(lng, this.articleId)
+            .subscribe((childs: any) => {
+              this.article = childs.data
               this.generaleService.increment.next(false)
             })
       },
@@ -59,7 +87,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subParams$.unsubscribe()
+    // this.subLang$.unsubscribe()
+    // this.subParams$.unsubscribe()
   }
 }

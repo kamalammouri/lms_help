@@ -11,8 +11,8 @@ export class SatisfactionComponent implements OnInit {
   satisfyed:boolean;
   @Input('articleId') articleId:string;
   constructor(
-    generaleService:GeneraleService,
-    activeRoute:ActivatedRoute
+    private generaleService:GeneraleService,
+    private activeRoute:ActivatedRoute
     ) {
   }
 
@@ -24,6 +24,10 @@ export class SatisfactionComponent implements OnInit {
 
   review(rep:boolean){
     this.satisfyed = rep;
+    let data = {
+      article_id:this.articleId,
+    }
+    // this.generaleService.saveSatisfaction().subscribe()
   }
 
   inistialize(){

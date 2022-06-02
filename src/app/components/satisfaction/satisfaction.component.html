@@ -1,4 +1,4 @@
-<div class="row pt-5 ">
+<div class="row py-5">
     <div class="col-12 text-center mbt-primary-text" *ngIf="satisfyed==null">
         <h5>{{'Ces informations vous-ont elles été utiles ?' | translate}}</h5>
         <div class="d-flex flex-row justify-content-center align-items-center">
@@ -20,7 +20,7 @@
                 <p class="mbt-primary-text h6">{{'Nous sommes désolés.' | translate}}</p>
                 <p class="mbt-primary-text">{{"Comment pouvons-nous l'améliorer ?" | translate}}</p>
                 <div class="col-6 d-flex flex-column">
-                    <textarea class="form-control" name="" id="" cols="30" rows="4"></textarea>
+                    <textarea class="form-control" name="" id="" cols="30" rows="4" autofocus></textarea>
                     <input class="btn mbt-primary form-control with-content px-3 mt-2" type="submit" value="{{'Envoyer' | translate}}" (click)="review(true)"/>
                 </div>
             </div>
