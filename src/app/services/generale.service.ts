@@ -62,9 +62,9 @@ export class GeneraleService {
 
   getArticleChilde(lg: string, code: string):any {
     let artilceUrl = this.increment.getValue() ? '/api/lmshelp/' + lg + '/getArticle/' + code + '/' + this.increment.getValue() : '/api/lmshelp/' + lg + '/getArticle/' + code
-    console.log('artilceUrl',artilceUrl);
+    console.log(artilceUrl);
     
-    return this.httpClient.get<any>(artilceUrl) 
+    return this.httpClient.get<any>(artilceUrl) && this.increment.next(false)
   }
 
   makeSession() {

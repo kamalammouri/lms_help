@@ -49,12 +49,12 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
       if (this.routeParams?.id)
         this.generaleService
           .getArticleChilde(res, this.routeParams?.id)
-          .subscribe((res: any) => (this.article = res.data))
+          ?.subscribe((res: any) => (this.article = res.data))
     })
   }
 
   ngOnDestroy() {
-    // this.subLang$.unsubscribe()
-    // this.subParams$.unsubscribe()
+    this.subLang$.unsubscribe()
+    this.subParams$.unsubscribe()
   }
 }

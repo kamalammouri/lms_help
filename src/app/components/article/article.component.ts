@@ -44,7 +44,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subLang$.unsubscribe()
-    // this.subService$.unsubscribe()
+    this.subLang$.unsubscribe()
+    this.subService$.unsubscribe()
   }
 }
