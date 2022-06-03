@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ArticleDescriptionComponent implements OnInit {
   @Input('articleDesc') articleDesc:any;
+  @Input('articleLabel') articleLabel:any;
   constructor() { }
 
   ngOnInit(): void {

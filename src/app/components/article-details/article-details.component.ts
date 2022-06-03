@@ -71,6 +71,8 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
           .getArticleChilde(lng, id)
           .subscribe((childs: any) => {
             this.article = childs.data
+            console.log(this.article.label);
+            
             this.apiService.increment.next(false)
           })
       : null
