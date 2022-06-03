@@ -19,24 +19,43 @@ export class GeneraleService {
   activeLanguage = new BehaviorSubject<string>(null)
   fristArticle = new BehaviorSubject<string>(null)
   changeLanguage: Observable<string>
+  changeUrl: Observable<{ lng: string; id?: string }>
+  articleId = new BehaviorSubject<string>(null)
+  // changeUrl= new BehaviorSubject<string>(null)
   constructor(
     private router: Router,
     public translate: TranslateService,
     private httpClient: HttpClient,
   ) {
     translate.addLangs(this.langs)
+    // this.changeLanguage.subscribe(res=> this.changeUrl.next(res))
 
-    this.changeLanguage = this.router.events.pipe(
-      filter((event) => event instanceof ActivationEnd),
-      switchMap((event: any) => of(event.snapshot.params['lg'])),
-      // distinctUntilChanged(),
-      tap((lng: any) => (lng && this.langs.includes(lng) ? lng : 'fr')),
+    this.changeUrl = this.router.events.pipe(
+      filter((event: any) => event instanceof ActivationEnd),
+      distinctUntilChanged(
+        (prev: any, next: any) =>
+          prev.snapshot.params['lg'] == next.snapshot.params['lg'] && prev.snapshot.params['id'] == next.snapshot.params['id'] 
+      ),
+      switchMap((event: any) => of({
+          lng: event.snapshot.params['lg'],
+          id: event.snapshot.params['id'] ?? null,
+        }),
+      ),
+      tap((res: any) => {
+        return {
+          ...res,
+          lng: res.lng && this.langs.includes(res.lng) ? res.lng : 'fr',
+        }
+      }),
     )
-    this.changeLanguage.subscribe((lng) => {
+
+    this.changeUrl.subscribe(({ lng, id }) => {      
       translate.setDefaultLang(lng)
       this.activeLanguage.next(lng)
+      this.articleId.next(id)
     })
 
+    
     this.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
       let _url: any = this.router.url.split('/')
       if (_url.length >= 2 && this.langs.includes(_url[1])) {

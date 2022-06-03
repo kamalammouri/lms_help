@@ -11,6 +11,8 @@ import { SatisfactionComponent } from '../satisfaction/satisfaction.component'
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
   routeParams: any
+  articleId_: string
+  lng_: string
   langs = ['en', 'de', 'fr']
   article: any = {}
   subLang$: Subscription
@@ -23,11 +25,13 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subParams$ = this.activeRoute.params
+    this.subParams$ = this.generaleService.articleId
       .pipe(
         distinctUntilChanged(),
-        tap((params: any) =>
-          params.id == null
+        tap((id: any) => {
+          console.log('articleId', id)
+
+          id == null
             ? this.generaleService.fristArticle
                 .pipe(
                   distinctUntilChanged(),
@@ -37,25 +41,37 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
                   this.generaleService.increment.next(true)
                   this.router.navigateByUrl(this.router.url + '/' + res)
                 })
-            : null,
-        ),
-        filter((params: any) => params?.id != null || params?.id != undefined),
+            : null
+        }),
+        filter((id: any) => id != null || id != undefined),
       )
-      .subscribe((params: any) => (this.routeParams = params))
+      .subscribe((id: any) => {
+        this.articleId_ = id
+        this.getArticles(this.lng_, id)
+      })
 
-    this.subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe(
-      (res: any) => {
+    this.subLang$ = this.generaleService.activeLanguage.pipe(
+      distinctUntilChanged(),
+      filter((res) => res != null),
+    ).subscribe(
+      (lng: any) => {
         this.article = {}
         this.satisfactionComp?.inistialize()
-        if (this.routeParams?.id)
-          this.generaleService
-            .getArticleChilde(res, this.routeParams?.id)
-            .subscribe((res: any) => {
-              this.article = res.data
-              this.generaleService.increment.next(false)
-            })
+        this.lng_ = lng
+        this.getArticles(lng, this.articleId_)
       },
     )
+  }
+
+  getArticles(lng: string, id: string) {
+    lng && id
+      ? this.generaleService
+          .getArticleChilde(lng, id)
+          .subscribe((childs: any) => {
+            this.article = childs.data
+            this.generaleService.increment.next(false)
+          })
+      : null
   }
 
   ngOnDestroy() {
