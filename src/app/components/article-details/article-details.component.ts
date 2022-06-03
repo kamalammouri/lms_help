@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { tap, distinctUntilChanged, filter } from 'rxjs/operators'
+import { ApiService } from 'src/app/services/api.service'
 import { GeneraleService } from 'src/app/services/generale.service'
 import { SatisfactionComponent } from '../satisfaction/satisfaction.component'
 @Component({
@@ -10,7 +11,9 @@ import { SatisfactionComponent } from '../satisfaction/satisfaction.component'
   styleUrls: ['./article-details.component.scss'],
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
-  articleId: any
+  routeParams: any
+  articleId_: string
+  lng_: string
   langs = ['en', 'de', 'fr']
   article: any = {}
   subLang$: Subscription
@@ -20,74 +23,61 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
-    // this.generaleService.changeUrl.subscribe((res: any) => {
-    //   console.log('resUrl', res);
-
-    // });
-    // this.subParams$ = this.activeRoute.params
-    //   .pipe(
-    //     distinctUntilChanged(),
-    //     tap((params: any) =>
-    //       params.id == null
-    //         ? this.generaleService.fristArticle
-    //             .pipe(
-    //               distinctUntilChanged(),
-    //               filter((res) => res != null),
-    //             )
-    //             .subscribe((res) => {
-    //               this.generaleService.increment.next(true)
-    //               this.router.navigateByUrl(this.router.url + '/' + res)
-    //             })
-    //         : null,
-    //     ),
-    //     filter((params: any) => params?.id != null || params?.id != undefined),
-    //   )
-    //   .subscribe((params: any) => (this.routeParams = params))
-
     this.subParams$ = this.generaleService.articleId
       .pipe(
         distinctUntilChanged(),
-        tap((id: any) =>
-          {
-            console.log('articleId', id)
-            
-            id == null
+        tap((id: any) => {
+          console.log('articleId', id)
+
+          id == null
             ? this.generaleService.fristArticle
                 .pipe(
                   distinctUntilChanged(),
-                  filter((res) => res != null),
+                  filter((res) => res != null || res != undefined),
                 )
                 .subscribe((res) => {
-                  this.generaleService.increment.next(true)
+                  this.apiService.increment.next(true)
                   this.router.navigateByUrl(this.router.url + '/' + res)
                 })
-            : null}
-        ),
+            : null
+        }),
         filter((id: any) => id != null || id != undefined),
       )
-      .subscribe((id: any) => (this.articleId = id))
+      .subscribe((id: any) => {
+        this.articleId_ = id
+        this.getArticles(this.lng_, id)
+      })
 
-    this.subLang$ = this.generaleService.activeLanguage.subscribe(
+    this.subLang$ = this.generaleService.activeLanguage.pipe(
+      distinctUntilChanged(),
+      filter((res) => res != null || res != undefined),
+    ).subscribe(
       (lng: any) => {
         this.article = {}
         this.satisfactionComp?.inistialize()
-
-        if (this.articleId)
-          this.generaleService
-            .getArticleChilde(lng, this.articleId)
-            .subscribe((childs: any) => {
-              this.article = childs.data
-              this.generaleService.increment.next(false)
-            })
+        this.lng_ = lng
+        this.getArticles(lng, this.articleId_)
       },
     )
   }
 
+  getArticles(lng: string, id: string) {
+    lng && id
+      ? this.apiService
+          .getArticleChilde(lng, id)
+          .subscribe((childs: any) => {
+            this.article = childs.data
+            this.apiService.increment.next(false)
+          })
+      : null
+  }
+
   ngOnDestroy() {
-    // this.subLang$.unsubscribe()
-    // this.subParams$.unsubscribe()
+    this.subLang$.unsubscribe()
+    this.subParams$.unsubscribe()
   }
 }

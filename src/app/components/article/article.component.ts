@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { GeneraleService } from 'src/app/services/generale.service'
 import { filter, take, tap, distinctUntilChanged } from 'rxjs/operators'
+import { ApiService } from 'src/app/services/api.service'
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -18,19 +19,20 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
     this.subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe(
       (lang: string) => {
         this.topArticles$.next([])
-        this.subService$ = this.generaleService
+        this.subService$ = this.apiService
           .getTopArticles(lang)
           .pipe(
             filter((res: any) => res?.data?.topArticles?.length > 0),
             tap((res: any) => {
               if (res.data.session_id == null)
-                this.generaleService.makeSession()
+                this.apiService.makeSession()
             }),
           )
           .subscribe((res: any) => {
