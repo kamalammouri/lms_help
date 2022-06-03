@@ -43,7 +43,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
       )
       .subscribe((params: any) => (this.routeParams = params))
 
-    this.subLang$ = this.generaleService.activeLanguage.subscribe(
+    this.subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe(
       (res: any) => {
         this.article = {}
         this.satisfactionComp?.inistialize()
