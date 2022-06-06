@@ -21,7 +21,6 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   @ViewChild('satisfactionComp') satisfactionComp: SatisfactionComponent
   constructor(
     private router: Router,
-    private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
     private apiService: ApiService
   ) {}

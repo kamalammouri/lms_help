@@ -15,6 +15,7 @@ import {
 })
 export class GeneraleService {
   langs = ['en', 'de', 'fr']
+  
 
   activeLanguage = new BehaviorSubject<string>(null)
   fristArticle = new BehaviorSubject<string>(null)
@@ -49,10 +50,10 @@ export class GeneraleService {
       }),
     )
 
-    this.changeUrl.subscribe(({ lng, id }) => {      
+    this.changeUrl.subscribe(({ lng, id }) => {  
       translate.setDefaultLang(lng)
       this.activeLanguage.next(lng)
-      this.articleId.next(id)
+      if(id) this.articleId.next(id)
     })
 
     

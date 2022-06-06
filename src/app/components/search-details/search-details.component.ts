@@ -43,6 +43,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   getData(lg: string, query: string, filtr: string = null) {
+    // console.log('getData', lg, query, filtr);
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr
     console.log('data', data);

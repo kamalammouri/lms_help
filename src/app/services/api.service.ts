@@ -14,6 +14,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   getTopArticles(lg: string): Observable<any> {
+    
     return this.httpClient.get<any>('http://192.168.1.24/api/lmshelp/' + lg + '/topArticles')
   }
 
