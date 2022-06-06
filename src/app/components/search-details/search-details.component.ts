@@ -12,6 +12,7 @@ import { HotToastService } from '@ngneat/hot-toast'
   styleUrls: ['./search-details.component.scss'],
 })
 export class SearchDetailsComponent implements OnInit, OnDestroy {
+  data:any;
   activeLg: string
   queryParams: any = {}
   subQueryparams$: Subscription
@@ -53,7 +54,6 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
       filter: filter,
     }
     // console.log(data)
-    // this.toast.show('Hello World!')
     this.apiService
       .search(data)
       .pipe(
@@ -68,7 +68,8 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
         catchError((error) => of(error))
       )
       .subscribe((res: any) => {
-        console.log(res)
+        console.log(res);
+        this.data = res;
       })
   }
 
