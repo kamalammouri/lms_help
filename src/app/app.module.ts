@@ -15,7 +15,8 @@ import { SatisfactionComponent } from './components/satisfaction/satisfaction.co
 import { ArticleVideoComponent } from './components/article-video/article-video.component'
 import { ArticleDescriptionComponent } from './components/article-description/article-description.component'
 import { ArticleDocumentComponent } from './components/article-document/article-document.component'
-import { SearchDetailsComponent } from './components/search-details/search-details.component'
+import { SearchDetailsComponent } from './components/search-details/search-details.component';
+import { HotToastModule } from '@ngneat/hot-toast'
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -46,6 +47,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    HotToastModule.forRoot({dismissible: true}),
   ],
   providers: [],
   bootstrap: [AppComponent],

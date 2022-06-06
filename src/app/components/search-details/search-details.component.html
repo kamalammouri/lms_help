@@ -1,4 +1,4 @@
-<div class="row d-flex align-items-center">
+<div class="row d-flex align-items-center mt-4">
     <div class="col-12 border-bottom pb-2">
         <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: undefined}">
             <i class="fas fa-search pe-1"></i> {{'Tout' | translate}}
@@ -17,7 +17,7 @@
 <div class="row mt-4">
     <div class="col-12">
         <pre>
-            {{ activeLg}}
+            {{ activeLg }}
         </pre>
         <pre>
             {{queryParams | json}}
