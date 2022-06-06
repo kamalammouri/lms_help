@@ -27,55 +27,55 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subParams$ = this.generaleService.articleId
-      .pipe(
-        distinctUntilChanged(),
-        tap((id: any) => {
-          console.log('articleId', id)
+  //   this.subParams$ = this.generaleService.articleId
+  //     .pipe(
+  //       distinctUntilChanged(),
+  //       tap((id: any) => {
+  //         console.log('articleId', id)
 
-          id == null
-            ? this.generaleService.fristArticle
-                .pipe(
-                  distinctUntilChanged(),
-                  filter((res) => res != null || res != undefined),
-                )
-                .subscribe((res) => {
-                  this.apiService.increment.next(true)
-                  this.router.navigateByUrl(this.router.url + '/' + res)
-                })
-            : null
-        }),
-        filter((id: any) => id != null || id != undefined),
-      )
-      .subscribe((id: any) => {
-        this.articleId_ = id
-        this.getArticles(this.lng_, id)
-      })
+  //         id == null
+  //           ? this.generaleService.fristArticle
+  //               .pipe(
+  //                 distinctUntilChanged(),
+  //                 filter((res) => res != null || res != undefined),
+  //               )
+  //               .subscribe((res) => {
+  //                 this.apiService.increment.next(true)
+  //                 this.router.navigateByUrl(this.router.url + '/' + res)
+  //               })
+  //           : null
+  //       }),
+  //       filter((id: any) => id != null || id != undefined),
+  //     )
+  //     .subscribe((id: any) => {
+  //       this.articleId_ = id
+  //       this.getArticles(this.lng_, id)
+  //     })
 
-    this.subLang$ = this.generaleService.activeLanguage.pipe(
-      distinctUntilChanged(),
-      filter((res) => res != null || res != undefined),
-    ).subscribe(
-      (lng: any) => {
-        this.article = {}
-        this.satisfactionComp?.inistialize()
-        this.lng_ = lng
-        this.getArticles(lng, this.articleId_)
-      },
-    )
-  }
+  //   this.subLang$ = this.generaleService.activeLanguage.pipe(
+  //     distinctUntilChanged(),
+  //     filter((res) => res != null || res != undefined),
+  //   ).subscribe(
+  //     (lng: any) => {
+  //       this.article = {}
+  //       this.satisfactionComp?.inistialize()
+  //       this.lng_ = lng
+  //       this.getArticles(lng, this.articleId_)
+  //     },
+  //   )
+  // }
 
-  getArticles(lng: string, id: string) {
-    lng && id
-      ? this.apiService
-          .getArticleChilde(lng, id)
-          .subscribe((childs: any) => {
-            this.article = childs.data
-            console.log(this.article.label);
+  // getArticles(lng: string, id: string) {
+  //   lng && id
+  //     ? this.apiService
+  //         .getArticleChilde(lng, id)
+  //         .subscribe((childs: any) => {
+  //           this.article = childs.data
+  //           console.log(this.article.label);
             
-            this.apiService.increment.next(false)
-          })
-      : null
+  //           this.apiService.increment.next(false)
+  //         })
+  //     : null
   }
 
   ngOnDestroy() {
