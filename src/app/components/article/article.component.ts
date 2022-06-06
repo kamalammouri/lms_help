@@ -19,20 +19,23 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
-    this.subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged()).subscribe(
-      (lang: string) => {
+    this.subLang$ = this.generaleService.activeLanguage
+      .pipe(
+        filter(res=>res!=null),
+        distinctUntilChanged())
+      .subscribe((lang: string) => {
         this.topArticles$.next([])
         this.subService$ = this.apiService
           .getTopArticles(lang)
           .pipe(
+            tap((res: any) => console.log(res)),
             filter((res: any) => res?.data?.topArticles?.length > 0),
             tap((res: any) => {
-              if (res.data.session_id == null)
-                this.apiService.makeSession()
+              if (res.data.session_id == null) this.apiService.makeSession()
             }),
           )
           .subscribe((res: any) => {
@@ -41,8 +44,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
               res.data.topArticles[0]?.code,
             )
           })
-      },
-    )
+      })
   }
 
   ngOnDestroy() {

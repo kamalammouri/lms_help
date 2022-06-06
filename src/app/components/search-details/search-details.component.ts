@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { GeneraleService } from 'src/app/services/generale.service'
-import { Subscription, of } from 'rxjs'
+import { Subscription, of, BehaviorSubject, combineLatestWith } from 'rxjs'
 import {
   filter,
   distinctUntilChanged,
@@ -21,8 +21,8 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   result: any
   activeLg: string
   queryParams: any = {}
-  subQueryparams$: Subscription
-  subLang$: Subscription
+  subQueryparams$ = this.activeRoute.queryParams
+  subLang$ = this.generaleService.activeLanguage
   subData$: Subscription
   constructor(
     private activeRoute: ActivatedRoute,
@@ -30,25 +30,13 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private toast: HotToastService,
   ) {
-    this.subLang$ = this.generaleService.activeLanguage
-      .pipe(
-        distinctUntilChanged(),
-        filter((lg: any) => lg != null || lg != undefined),
-      )
-      .subscribe((lng: string) => {
-        this.activeLg = lng
-        if (this.queryParams)
-          this.getData(lng, this.queryParams?.q, this.queryParams?.f)
-      })
-
-    this.subQueryparams$ = this.activeRoute.queryParams
-      .pipe(
-        distinctUntilChanged(),
-        filter((query: any) => query.q != null || query.q != undefined),
-      )
-      .subscribe((res) => {
-        this.queryParams = res
-        if (this.activeLg) this.getData(this.activeLg, res?.q, res?.f)
+      this.subQueryparams$.pipe(
+        combineLatestWith(this.subLang$),
+        filter(([query,lang]) =>( query?.['q'] != null || query?.['q'] != undefined) && (lang != null || lang != undefined)),
+        distinctUntilChanged(([queryPrev,langPrev]: any, [queryCur,langCur]: any) => queryPrev === queryCur && langPrev === langCur),
+        )
+      .subscribe(([query,lang]) => {
+        this.getData(lang, query?.q, query?.f)
       })
   }
 
@@ -57,6 +45,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   getData(lg: string, query: string, filtr: string = null) {
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr
+    console.log('data', data);
     const loading = this.toast.loading('Loading...', { id: 'loading' })
     if (this.subData$ != null) this.subData$.unsubscribe()
     this.subData$ = this.apiService
@@ -78,7 +67,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subQueryparams$.unsubscribe()
     this.subLang$.unsubscribe()
+    this.subData$.unsubscribe()
   }
 }

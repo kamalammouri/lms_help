@@ -18,6 +18,7 @@ export class ApiService {
   }
 
   getArticleChilde(lg: string, code: string): Observable<any> {
+    
     let artilceUrl = this.increment.getValue()
       ? 'http://192.168.1.24/api/lmshelp/' +
         lg +
@@ -26,7 +27,6 @@ export class ApiService {
         '/' +
         this.increment.getValue()
       : 'http://192.168.1.24/api/lmshelp/' + lg + '/getArticle/' + code
-    // console.log(artilceUrl)
 
     return this.httpClient.get<any>(artilceUrl)
   }
