@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { BehaviorSubject, Observable, of } from 'rxjs'
-import { distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators'
+import { distinctUntilChanged, filter, switchMap, tap,map } from 'rxjs/operators'
 import {
   ActivatedRoute,
   ActivationEnd,
@@ -36,10 +36,10 @@ export class GeneraleService {
         (prev: any, next: any) =>
           prev.snapshot.params['lg'] == next.snapshot.params['lg'] && prev.snapshot.params['id'] == next.snapshot.params['id'] 
       ),
-      switchMap((event: any) => of({
+      map((event: any) => { return{
           lng: event.snapshot.params['lg'],
           id: event.snapshot.params['id'] ?? null,
-        }),
+        }},
       ),
       tap((res: any) => {
         return {

@@ -1,8 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { GeneraleService } from 'src/app/services/generale.service'
-import { Subscription,of } from 'rxjs'
-import { filter, distinctUntilChanged, catchError } from 'rxjs/operators'
+import { Subscription, of } from 'rxjs'
+import {
+  filter,
+  distinctUntilChanged,
+  catchError,
+  tap,
+  map,
+} from 'rxjs/operators'
 import { ApiService } from 'src/app/services/api.service'
 import { HotToastService } from '@ngneat/hot-toast'
 
@@ -12,11 +18,12 @@ import { HotToastService } from '@ngneat/hot-toast'
   styleUrls: ['./search-details.component.scss'],
 })
 export class SearchDetailsComponent implements OnInit, OnDestroy {
-  data:any;
+  result: any
   activeLg: string
   queryParams: any = {}
   subQueryparams$: Subscription
   subLang$: Subscription
+  subData$: Subscription
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
@@ -47,30 +54,27 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  getData(lg: string, query: string, filter?: string) {
-    let data = {
-      lang: lg,
-      query: query,
-      filter: filter,
-    }
-    // console.log(data)
-    this.apiService
+  getData(lg: string, query: string, filtr: string = null) {
+    filtr = filtr ? '/' + filtr : ''
+    let data: string = lg + '/' + query + filtr
+    const loading = this.toast.loading('Loading...', { id: 'loading' })
+    if (this.subData$ != null) this.subData$.unsubscribe()
+    this.subData$ = this.apiService
       .search(data)
       .pipe(
         distinctUntilChanged(),
-        this.toast.observe(
-          {
-            loading: 'Searching...',
-            success: (s) => 'I got a response: ' + s,
-            error: (e) => 'Something did not work, reason: ' + e.message,
-          }
-        ),
-        catchError((error) => of(error))
+        catchError((error) => of(error)),
+        map((res: any) => res.data.es_supportHelp),
       )
-      .subscribe((res: any) => {
-        console.log(res);
-        this.data = res;
-      })
+      .subscribe(
+        (res: any) => {
+          this.result = res
+        },
+        (err: any) => {},
+        () => {
+          loading.close()
+        },
+      )
   }
 
   ngOnDestroy() {

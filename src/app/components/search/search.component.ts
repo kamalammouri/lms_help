@@ -36,8 +36,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subSearch = this.searchTerm$
       .pipe(
         filter((text) => text != null),
-        debounceTime(500),
         distinctUntilChanged(),
+        debounceTime(800),
       )
       .subscribe((text) => {
       // console.log('text',text);

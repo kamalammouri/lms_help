@@ -1,27 +1,48 @@
 <div class="row d-flex align-items-center mt-4">
     <div class="col-12 border-bottom pb-2">
-        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: undefined}">
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn"
+            [routerLinkActiveOptions]="{exact: true}"
+            routerLinkActive="FilterActive" [routerLink]="'.'"
+            queryParamsHandling="merge" [queryParams]="{f: undefined}">
             <i class="fas fa-search pe-1"></i> {{'Tout' | translate}}
         </a>
-        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'"  queryParamsHandling="merge" [queryParams]="{f: 'img'}">
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn"
+            [routerLinkActiveOptions]="{exact: false}"
+            routerLinkActive="FilterActive" [routerLink]="'.'"
+            queryParamsHandling="merge" [queryParams]="{f: 'image'}">
             <i class="far fa-image pe-1"></i> {{'Images' | translate}}
         </a>
-        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'" queryParamsHandling="merge" [queryParams]="{f: 'vid'}">
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn"
+            [routerLinkActiveOptions]="{exact: false}"
+            routerLinkActive="FilterActive" [routerLink]="'.'"
+            queryParamsHandling="merge" [queryParams]="{f: 'video'}">
             <i class="far fa-play-circle pe-1"></i> {{'Videos'| translate}}
         </a>
-        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn" [routerLinkActiveOptions]="{exact: false}" routerLinkActive="FilterActive" [routerLink]="'.'" queryParamsHandling="merge" [queryParams]="{f: 'doc'}">
+        <a class="p-1 mx-3 text-muted cursor-pointer filterBtn"
+            [routerLinkActiveOptions]="{exact: false}"
+            routerLinkActive="FilterActive" [routerLink]="'.'"
+            queryParamsHandling="merge" [queryParams]="{f: 'document'}">
             <i class="far fa-file-alt pe-1"></i> {{'Documents'| translate}}
         </a>
     </div>
 </div>
-<div class="row mt-4">
-    <div class="col-12">
-        <pre>
-            {{ activeLg }}
-            {{queryParams | json}}
-        </pre>
-        <pre>
-            {{data | json}}
-        </pre>
+<div class="card-body bg-hsla">
+    <div class="col-12 pb-1">
+        <div class="row my-3 text-end">
+            <span class="text-muted small-text">
+                <span translate>About</span> {{ result?.total?.value }} <span
+                    translate>result</span> ({{ result?.max_score?.toFixed(2)}}
+                <span translate>seconds</span>)
+            </span>
+        </div>
+        <ng-container *ngFor="let hit of result?.hits">
+            <div class="row">
+                <pre>
+                    {{hit | json}}
+                </pre>
+            </div>
+        </ng-container>
+
     </div>
+
 </div>
