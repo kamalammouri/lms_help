@@ -27,7 +27,11 @@ export class ApiService {
     return this.httpClient.get<any>(artilceUrl)
   }
 
-  makeSession() {
-    return this.httpClient.get('/api/lmshelp/createSession')
+  makeSession(): Observable<any> {
+    return this.httpClient.get<any>('/api/lmshelp/createSession')
+  }
+
+  search(data:any): Observable<any> {
+    return this.httpClient.post<any>('/api/lmshelp/search',data)
   }
 }

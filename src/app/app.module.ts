@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { HomeComponent } from './components/home/home.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { SearchComponent } from './components/search/search.component'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
@@ -16,6 +15,7 @@ import { SatisfactionComponent } from './components/satisfaction/satisfaction.co
 import { ArticleVideoComponent } from './components/article-video/article-video.component'
 import { ArticleDescriptionComponent } from './components/article-description/article-description.component'
 import { ArticleDocumentComponent } from './components/article-document/article-document.component'
+import { SearchDetailsComponent } from './components/search-details/search-details.component'
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -24,7 +24,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    SearchDetailsComponent,
     NavbarComponent,
     SearchComponent,
     ContactComponent,
