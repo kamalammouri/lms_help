@@ -24,10 +24,10 @@ export class GeneraleService {
 
   activeLanguage = new BehaviorSubject<string>(null)
   fristArticle = new BehaviorSubject<string>(null)
-  changeLanguage: Observable<string>
   changeUrl: Observable<{ lng: string; id?: string }>
+  changeLanguage: Observable<string>
   articleId = new BehaviorSubject<string>(null)
-  // changeUrl= new BehaviorSubject<string>(null)
+  navigToFirstArticle = new BehaviorSubject<boolean>(false);
   constructor(private router: Router, public translate: TranslateService) {
     translate.addLangs(this.langs)
     // this.changeLanguage.subscribe(res=> this.changeUrl.next(res))
@@ -53,14 +53,17 @@ export class GeneraleService {
       }),
     )
 
-    this.changeUrl
-      .pipe(filter(res => res.lng != null || res.id != null))
-      .subscribe(({ lng, id }) => {
-        // console.log('id changed', id)
-        translate.setDefaultLang(lng)
-        this.activeLanguage.next(lng)
+    this.changeUrl.subscribe(({ lng, id }) => {
+      // console.log('id changed', id)
+      translate.setDefaultLang(lng)
+      this.activeLanguage.next(lng)
+      if (id != null) {
         this.articleId.next(id)
-      })
+        this.navigToFirstArticle.next(false)
+      }else{
+        this.navigToFirstArticle.next(true)
+      }
+    })
 
     this.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
       let _url: any = this.router.url.split('/')

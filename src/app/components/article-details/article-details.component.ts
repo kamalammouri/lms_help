@@ -22,6 +22,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   langs = ['en', 'de', 'fr']
   article: any = {}
   subLang$ = this.generaleService.activeLanguage
+  subNav$ : Subscription;
   @ViewChild('satisfactionComp') satisfactionComp: SatisfactionComponent
   constructor(
     private router: Router,
@@ -30,12 +31,13 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.subNav$ = this.generaleService.navigToFirstArticle.subscribe((res) => {
+      if (res) this.navigateToFirstArticle()
+    })
+
     this.generaleService.articleId
       .pipe(
         combineLatestWith(this.subLang$),
-        tap( ([id, lang]) =>{
-          id==null? this.router.navigate(['/' +lang +'/article/' +this.generaleService.fristArticle.getValue()]):false
-        }),
         filter(
           ([id, lang]) =>
             (id != null || id != undefined) &&
@@ -44,7 +46,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
         distinctUntilChanged(
           ([idPrev, langPrev]: any, [idCur, langCur]: any) =>
             idPrev === idCur && langPrev === langCur,
-        )
+        ),
       )
       .subscribe(([id, lang]) => {
         this.article = {}
@@ -60,8 +62,20 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
+  navigateToFirstArticle() {
+    this.generaleService.fristArticle
+      .pipe(
+        filter((firstId) => firstId !== null),
+        distinctUntilChanged(),
+      )
+      .subscribe((firstId) => {
+        this.router.navigateByUrl(this.router.url + '/' + firstId)
+      })
+  }
+
   ngOnDestroy() {
-  //   this.subLang$.unsubscribe()
-  //   this.subParams$.unsubscribe()
+    //   this.subLang$.unsubscribe()
+    //   this.subParams$.unsubscribe()
+    this.subNav$.unsubscribe()
   }
 }

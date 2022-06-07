@@ -30,12 +30,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         // distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
       )
       .subscribe((res: any) => {
-        if (res.q == '') {
-          // this.router.navigate(['/'])
-          this.searchTerm$.next('')
-        } else {
-          this.searchTerm$.next(res.q)
-        }
+        this.searchTerm$.next(res.q)
       })
 
     this.searchTerm$
@@ -45,15 +40,13 @@ export class SearchComponent implements OnInit, OnDestroy {
         debounceTime(800),
       )
       .subscribe((text) => {
-        // console.log('text',text);
-
         let lg = this.generaleService.activeLanguage.getValue()
         if (text != '') {
           this.router.navigate(['/' + lg + '/search'], {
             queryParams: { q: text },
             queryParamsHandling: 'merge',
           })
-        } 
+        }
       })
   }
   ngOnDestroy() {

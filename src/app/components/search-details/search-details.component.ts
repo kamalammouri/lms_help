@@ -35,6 +35,9 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
     this.subQueryparams$
       .pipe(
         combineLatestWith(this.subLang$),
+        // tap(([query, lang]) =>
+        //   query?.['q'] == '' ? this.router.navigate([ '/' + lang + '/article/' + this.generaleService.fristArticle.getValue()]) : false
+        // ),
         filter(
           ([query, lang]) =>
             (query?.['q'] != null || query?.['q'] != undefined) &&
@@ -66,11 +69,9 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           this.result = res
-        },
-        (err) => {},
-        () => {
-          loading.close()
-        },
+          console.log(res);
+          
+        }
       )
   }
 
