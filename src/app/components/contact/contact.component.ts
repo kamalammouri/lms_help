@@ -6,6 +6,7 @@ import {
   AbstractControl,
   FormBuilder,
 } from '@angular/forms'
+import { GeneraleService } from 'src/app/services/generale.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,15 +14,15 @@ import {
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
+  contactForm: FormGroup
   imgHide: boolean = true
   submitted: boolean = false
   siteKey:string= '6LecyE4gAAAAAHFbh-SQ_CjblCFxtXhf4sFpqx8V';
-  size='Normal'
-  hl="lang"
-  theme="theme"
-  type='Image'
-  contactForm: FormGroup
-  constructor(private formBuilder: FormBuilder) {}
+  lng:string = 'fr';
+  // size='Normal'
+  // theme="theme"
+  // type='Image'
+  constructor(private formBuilder: FormBuilder,private generaleService: GeneraleService) {}
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
@@ -34,6 +35,9 @@ export class ContactComponent implements OnInit {
       ]),
       recaptcha: ['', Validators.required],
     })
+
+    this.generaleService.activeLanguage.subscribe(lng => this.lng = lng);
+    
   }
 
   togle(value: boolean) {
