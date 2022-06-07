@@ -23,19 +23,26 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   queryParams: any = {}
   subQueryparams$ = this.activeRoute.queryParams
   subLang$ = this.generaleService.activeLanguage
-  subData$: Subscription
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
     private apiService: ApiService,
     private toast: HotToastService,
   ) {
-      this.subQueryparams$.pipe(
+    this.subQueryparams$
+      .pipe(
         combineLatestWith(this.subLang$),
-        filter(([query,lang]) =>( query?.['q'] != null || query?.['q'] != undefined) && (lang != null || lang != undefined)),
-        distinctUntilChanged(([queryPrev,langPrev]: any, [queryCur,langCur]: any) => queryPrev === queryCur && langPrev === langCur),
-        )
-      .subscribe(([query,lang]) => {
+        filter(
+          ([query, lang]) =>
+            (query?.['q'] != null || query?.['q'] != undefined) &&
+            (lang != null || lang != undefined),
+        ),
+        distinctUntilChanged(
+          ([queryPrev, langPrev]: any, [queryCur, langCur]: any) =>
+            queryPrev === queryCur && langPrev === langCur,
+        ),
+      )
+      .subscribe(([query, lang]) => {
         this.getData(lang, query?.q, query?.f)
       })
   }
@@ -46,25 +53,19 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
     // console.log('getData', lg, query, filtr);
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr
-    console.log('data', data);
+    console.log('data', data)
     // const loading = this.toast.loading('Loading...', { id: 'loading' })
-    if (this.subData$ != null) this.subData$.unsubscribe()
-    this.subData$ = this.apiService
+    this.apiService
       .search(data)
       .pipe(
         distinctUntilChanged(),
         catchError((error) => of(error)),
         map((res: any) => res.data.es_supportHelp),
       )
-      .subscribe(
-        (res: any) => {
-          this.result = res
-        }
-      )
+      .subscribe((res: any) => {
+        this.result = res
+      })
   }
 
-  ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subData$.unsubscribe()
-  }
+  ngOnDestroy() {}
 }

@@ -18,47 +18,48 @@ export class SearchComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
     private router: Router,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
-        tap((res: any) => { if (res.q == undefined) this.searchTerm$.next(null) }),
+        tap((res: any) => {
+          if (res.q == undefined) this.searchTerm$.next('')
+        }),
         filter((res: any) => res.q != undefined || res.q != null),
         // distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
       )
       .subscribe((res: any) => {
         if (res.q == '') {
-          this.router.navigate(['/'])
+          // this.router.navigate(['/'])
+          this.searchTerm$.next('')
         } else {
           this.searchTerm$.next(res.q)
         }
       })
 
-    this.subSearch = this.searchTerm$
+    this.searchTerm$
       .pipe(
         filter((text) => text != null),
         distinctUntilChanged(),
         debounceTime(800),
       )
       .subscribe((text) => {
-      // console.log('text',text);
-      
+        // console.log('text',text);
+
         let lg = this.generaleService.activeLanguage.getValue()
         if (text != '') {
           this.router.navigate(['/' + lg + '/search'], {
             queryParams: { q: text },
             queryParamsHandling: 'merge',
           })
-        } 
-        else {
-          this.router.navigate(['/' + lg + '/article'])
+        } else {
+          this.router.navigate(['/' +lg +'/article/' +this.generaleService.fristArticle.getValue()])
         }
-        console.log('searchTerm$');
       })
   }
-
-  ngOnInit(): void {}
   ngOnDestroy() {
     this.subQueryparams.unsubscribe()
-    this.subSearch.unsubscribe()
+    // this.subSearch.unsubscribe()
   }
 }
