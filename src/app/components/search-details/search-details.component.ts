@@ -21,7 +21,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   result: any
   activeLg: string
   queryParams: any = {}
-  subQueryparams$ = this.activeRoute.queryParams
+  subQueryparams$: Subscription
   subLang$ = this.generaleService.activeLanguage
   constructor(
     private activeRoute: ActivatedRoute,
@@ -32,12 +32,13 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subQueryparams$
+    this.subQueryparams$ = this.activeRoute.queryParams
       .pipe(
         combineLatestWith(this.subLang$),
-        // tap(([query, lang]) =>
-        //   query?.['q'] == '' ? this.router.navigate([ '/' + lang + '/article/' + this.generaleService.fristArticle.getValue()]) : false
-        // ),
+        tap(([query, lang]) => {
+          query?.['q'] == '' ? this.router.navigate([ '/' + lang + '/article/' + this.generaleService.fristArticle.getValue()]) : false
+          console.log('SearchDetailsComponent', query)
+        }),
         filter(
           ([query, lang]) =>
             (query?.['q'] != null || query?.['q'] != undefined) &&
@@ -54,30 +55,25 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   }
 
   getData(lg: string, query: string, filtr: string = null) {
-    // console.log('getData', lg, query, filtr);
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr
-    console.log('data', data)
-    const loading = this.toast.loading('Loading...', { id: 'loading' })
+    // console.log('data', data)
+    // const loading = this.toast.loading('Loading...', { id: 'loading' })
     this.apiService
       .search(data)
       .pipe(
         distinctUntilChanged(),
         catchError((error) => of(error)),
-        map((res: any) => res.data.es_supportHelp),
+        map((res: any) => res?.data?.es_supportHelp),
       )
-      .subscribe(
-        (res: any) => {
-          this.result = res
-          console.log(res);
-          
-        }
-      )
+      .subscribe((res: any) => (this.result = res))
   }
 
   // navigateTo(parentId:string){
   //   this.router.navigate(['/a'])
   // }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.subQueryparams$.unsubscribe()
+  }
 }

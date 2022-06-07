@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
         tap((res: any) => {
-          if (res.q == undefined) this.searchTerm$.next('')
+          if (res.q == undefined) this.searchTerm$.next(null)
         }),
         filter((res: any) => res.q != undefined || res.q != null),
         // distinctUntilChanged((prev: any, cur: any) => prev.q === cur.q),
@@ -46,6 +46,8 @@ export class SearchComponent implements OnInit, OnDestroy {
             queryParams: { q: text },
             queryParamsHandling: 'merge',
           })
+        }if(text == ''){
+          this.router.navigate(['/' + lg + '/article/' + this.generaleService.fristArticle.getValue()])
         }
       })
   }

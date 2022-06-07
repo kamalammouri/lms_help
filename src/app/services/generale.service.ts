@@ -27,8 +27,13 @@ export class GeneraleService {
   changeUrl: Observable<{ lng: string; id?: string }>
   changeLanguage: Observable<string>
   articleId = new BehaviorSubject<string>(null)
-  navigToFirstArticle = new BehaviorSubject<boolean>(false);
-  constructor(private router: Router, public translate: TranslateService) {
+  navigToFirstArticle = new BehaviorSubject<boolean>(false)
+  subQueryparams$ = this.activeRoute.queryParams; //not working
+  constructor(
+    private router: Router,
+    public translate: TranslateService,
+    private activeRoute: ActivatedRoute,
+  ) {
     translate.addLangs(this.langs)
     // this.changeLanguage.subscribe(res=> this.changeUrl.next(res))
 
@@ -60,7 +65,7 @@ export class GeneraleService {
       if (id != null) {
         this.articleId.next(id)
         this.navigToFirstArticle.next(false)
-      }else{
+      } else {
         this.navigToFirstArticle.next(true)
       }
     })
