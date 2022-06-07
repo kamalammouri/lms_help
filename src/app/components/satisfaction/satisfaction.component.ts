@@ -1,38 +1,60 @@
-import { Component, Input, OnInit,OnChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { GeneraleService } from 'src/app/services/generale.service';
+import { Component, Input, OnInit, OnChanges } from '@angular/core'
+import { FormControl, Validators } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
+import { ApiService } from 'src/app/services/api.service'
+import { GeneraleService } from 'src/app/services/generale.service'
 
 @Component({
   selector: 'app-satisfaction',
   templateUrl: './satisfaction.component.html',
-  styleUrls: ['./satisfaction.component.scss']
+  styleUrls: ['./satisfaction.component.scss'],
 })
 export class SatisfactionComponent implements OnInit {
-  satisfyed:boolean;
-  @Input('articleId') articleId:string;
+  resetForm: boolean
+  @Input('articleId') articleId: string
+  messageCtr = new FormControl('', Validators.required)
   constructor(
-    private generaleService:GeneraleService,
-    private activeRoute:ActivatedRoute
-    ) {
-  }
+    private generaleService: GeneraleService,
+    private apiService: ApiService,
+    private activeRoute: ActivatedRoute,
+  ) {}
 
-  ngOnInit(): void {
-    this.satisfyed = null;
-    // console.log('articleId',this.articleId);
-    
-  }
+  ngOnInit(): void {}
 
-  review(rep:boolean){
-    this.satisfyed = rep;
-    let data = {
-      article_id:this.articleId,
+  review(satisf: boolean, withMsg: boolean = false) {
+    if (satisf && !withMsg) {
+      this.sendReview()
+    } else if (satisf && withMsg) {
+      this.messageCtr.value != '' ? this.sendReview(false) : false
+    } else {
+      this.resetForm = false
     }
-    // this.generaleService.saveSatisfaction().subscribe()
   }
 
-  inistialize(){
-    this.ngOnInit();
-    
+  inistialize() {
+    this.resetForm = null
   }
 
+  sendReview(flage: boolean = true) {
+    // let data = {
+    //   article_id:this.articleId,
+    //   lang: this.generaleService.activeLanguage.getValue(),
+    // }
+
+    let data: string
+    flage
+      ? (data =
+          this.generaleService.activeLanguage.getValue() + '/' + this.articleId)
+      : (data =
+          this.generaleService.activeLanguage.getValue() +
+          '/' +
+          this.articleId +
+          '/' +
+          this.messageCtr.value)
+
+    this.apiService.satisfaction(data).subscribe((res) => {
+      console.log('stf', res)
+      this.resetForm = true
+    })
+  }
 }

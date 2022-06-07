@@ -16,13 +16,11 @@
         </div>
       </div>
       <div class="row py-1 px-2">
-        <input type="text" name="fullname" id="fullname" placeholder="Nom,
-          prénom" formControlName="fullname" class="form-control"
+        <input type="text" name="fullname" id="fullname" placeholder="Nom, prénom" formControlName="fullname" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }"
           required>
         <div *ngIf="submitted && f['fullname'].errors" class="invalid-feedback">
-          <div *ngIf="f['fullname'].errors['required']">Nom et prenom is
-            required</div>
+          <div *ngIf="f['fullname'].errors['required']">Nom et prenom is required</div>
         </div>
       </div>
       <div class="row py-2 px-2">
@@ -54,6 +52,9 @@
         [hl]="lng"
         formControlName="recaptcha">
       </ngx-recaptcha2>
+      <div *ngIf="submitted && f['recaptcha'].errors" class="invalid-feedback">
+        <div *ngIf="f['recaptcha'].errors['required']">recaptcha is required</div>
+      </div>
       <div class="row p-3 mt-2">
         <button class="col-4 mr-auto btn_send" (click)="sendMessage()">Envoyer</button>
       </div>

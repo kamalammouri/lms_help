@@ -39,4 +39,10 @@ export class ApiService {
   search(data:any): Observable<any> {
     return this.httpClient.get<any>('http://192.168.1.24/api/lmshelp/search/'+data)
   }
+
+  satisfaction(data:any): Observable<any> {
+    console.log('http://192.168.1.24/api/lmshelp/satisfaction/'+data);
+    
+    return this.httpClient.get<any>('http://192.168.1.24/api/lmshelp/satisfaction/'+data)
+  }
 }

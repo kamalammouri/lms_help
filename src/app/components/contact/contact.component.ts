@@ -19,9 +19,6 @@ export class ContactComponent implements OnInit {
   submitted: boolean = false
   siteKey:string= '6LecyE4gAAAAAHFbh-SQ_CjblCFxtXhf4sFpqx8V';
   lng:string = 'fr';
-  // size='Normal'
-  // theme="theme"
-  // type='Image'
   constructor(private formBuilder: FormBuilder,private generaleService: GeneraleService) {}
 
   ngOnInit(): void {

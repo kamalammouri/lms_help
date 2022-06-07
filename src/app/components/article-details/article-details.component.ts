@@ -49,6 +49,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
         ),
       )
       .subscribe(([id, lang]) => {
+        this.articleId_ = id;
         this.article = {}
         this.satisfactionComp?.inistialize()
         this.getArticles(lang, id)
