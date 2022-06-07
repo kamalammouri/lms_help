@@ -56,7 +56,7 @@ export class GeneraleService {
     this.changeUrl
       .pipe(filter(res => res.lng != null || res.id != null))
       .subscribe(({ lng, id }) => {
-        console.log('id changed', id)
+        // console.log('id changed', id)
         translate.setDefaultLang(lng)
         this.activeLanguage.next(lng)
         this.articleId.next(id)

@@ -29,25 +29,27 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private toast: HotToastService,
   ) {
-    this.subQueryparams$
-      .pipe(
-        combineLatestWith(this.subLang$),
-        filter(
-          ([query, lang]) =>
-            (query?.['q'] != null || query?.['q'] != undefined) &&
-            (lang != null || lang != undefined),
-        ),
-        distinctUntilChanged(
-          ([queryPrev, langPrev]: any, [queryCur, langCur]: any) =>
-            queryPrev === queryCur && langPrev === langCur,
-        ),
-      )
-      .subscribe(([query, lang]) => {
-        this.getData(lang, query?.q, query?.f)
-      })
+   
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subQueryparams$
+    .pipe(
+      combineLatestWith(this.subLang$),
+      filter(
+        ([query, lang]) =>
+          (query?.['q'] != null || query?.['q'] != undefined) &&
+          (lang != null || lang != undefined),
+      ),
+      distinctUntilChanged(
+        ([queryPrev, langPrev]: any, [queryCur, langCur]: any) =>
+          queryPrev === queryCur && langPrev === langCur,
+      ),
+    )
+    .subscribe(([query, lang]) => {
+      this.getData(lang, query?.q, query?.f)
+    })
+  }
 
   getData(lg: string, query: string, filtr: string = null) {
     // console.log('getData', lg, query, filtr);
