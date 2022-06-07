@@ -6,6 +6,7 @@ import {
   AbstractControl,
   FormBuilder,
 } from '@angular/forms'
+import { ApiService } from 'src/app/services/api.service';
 import { GeneraleService } from 'src/app/services/generale.service';
 
 @Component({
@@ -17,9 +18,9 @@ export class ContactComponent implements OnInit {
   contactForm: FormGroup
   imgHide: boolean = true
   submitted: boolean = false
-  siteKey:string= '6LecyE4gAAAAAHFbh-SQ_CjblCFxtXhf4sFpqx8V';
+  siteKey:string= '6LfO308gAAAAAB-zLkKIZkvPr5W8HyMktlmOihn5';
   lng:string = 'fr';
-  constructor(private formBuilder: FormBuilder,private generaleService: GeneraleService) {}
+  constructor(private formBuilder: FormBuilder,private generaleService: GeneraleService,private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
@@ -41,6 +42,9 @@ export class ContactComponent implements OnInit {
     this.imgHide = value
     if (value) {
       this.contactForm.reset()
+      Object.keys(this.contactForm.controls).forEach(key => {
+        this.contactForm.get(key).setErrors(null) ;
+      });
     }
   }
 
@@ -53,6 +57,14 @@ export class ContactComponent implements OnInit {
     if (this.contactForm.invalid) {
       return
     }
-    console.log(JSON.stringify(this.contactForm.value, null, 2));
+    // let data:string = this.contactForm.value.fullname+'/'+this.contactForm.value.email+'/'+this.contactForm.value.message
+    console.log(this.contactForm.value);
+    
+    this.apiService.contact(this.contactForm.value).subscribe(
+      res => {
+        console.log('contact',res)
+        this.imgHide = true
+      }
+    );
   }
 }

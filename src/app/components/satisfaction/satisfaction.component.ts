@@ -36,24 +36,26 @@ export class SatisfactionComponent implements OnInit {
   }
 
   sendReview(flage: boolean = true) {
-    // let data = {
-    //   article_id:this.articleId,
-    //   lang: this.generaleService.activeLanguage.getValue(),
-    // }
+    let data: any = {
+      code: this.articleId,
+      lang: this.generaleService.activeLanguage.getValue(),
+    }
+    flage ? false : (data.message = this.messageCtr.value)
 
-    let data: string
-    flage
-      ? (data =
-          this.generaleService.activeLanguage.getValue() + '/' + this.articleId)
-      : (data =
-          this.generaleService.activeLanguage.getValue() +
-          '/' +
-          this.articleId +
-          '/' +
-          this.messageCtr.value)
+    // flage
+    //   ? (data =
+    //       this.generaleService.activeLanguage.getValue() + '/' + this.articleId)
+    //   : (data =
+    //       this.generaleService.activeLanguage.getValue() +
+    //       '/' +
+    //       this.articleId +
+    //       '/' +
+    //       this.messageCtr.value)
 
+    console.log(data);
+    
     this.apiService.satisfaction(data).subscribe((res) => {
-      console.log('stf', res)
+      // console.log('stf', res)
       this.resetForm = true
     })
   }
