@@ -36,7 +36,7 @@
             </span>
         </div>
         <ng-container *ngFor="let hit of result?.hits">
-            <div class="row border-bottom">
+            <div class="row border-bottom hoverSerch">
                 <a routerLink="../article/{{hit?.code}}">
                     <app-article-description [articleDesc]='hit'></app-article-description>
                 </a>
