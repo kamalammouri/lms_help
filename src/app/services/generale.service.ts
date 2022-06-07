@@ -52,7 +52,7 @@ export class GeneraleService {
     )
 
     this.searchChange$ = this.activeRoute.queryParams.pipe(
-      // filter((res: any) => res.q != undefined || res.q != null),
+      filter((res: any) => res.q != undefined || res.q != null),
       // map((res: any) => (res.q != undefined || res.q != null) && (res.q != undefined || res.q != null)),
       distinctUntilChanged(
         (prev: any, cur: any) => prev.q === cur.q && prev.f === cur.f,

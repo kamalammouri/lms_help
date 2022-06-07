@@ -79,7 +79,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subParams$.unsubscribe()
+    // this.subLang$.unsubscribe()
+    // this.subParams$.unsubscribe()
   }
 }

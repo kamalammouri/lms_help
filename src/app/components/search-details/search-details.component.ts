@@ -58,16 +58,12 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           this.result = res
-        },
-        (err: any) => {},
-        () => {
-          loading.close()
-        },
+        }
       )
   }
 
   ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subData$.unsubscribe()
+    // this.subLang$.unsubscribe()
+    // this.subData$.unsubscribe()
   }
 }
