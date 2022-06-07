@@ -51,9 +51,10 @@ export class GeneraleService {
     )
 
     this.changeUrl.subscribe(({ lng, id }) => {  
+      console.log('id changed',id);
       translate.setDefaultLang(lng)
       this.activeLanguage.next(lng)
-      if(id) this.articleId.next(id)
+      this.articleId.next(id)
     })
 
     

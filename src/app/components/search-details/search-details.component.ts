@@ -47,7 +47,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr
     console.log('data', data);
-    const loading = this.toast.loading('Loading...', { id: 'loading' })
+    // const loading = this.toast.loading('Loading...', { id: 'loading' })
     if (this.subData$ != null) this.subData$.unsubscribe()
     this.subData$ = this.apiService
       .search(data)
@@ -59,11 +59,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           this.result = res
-        },
-        (err: any) => {},
-        () => {
-          loading.close()
-        },
+        }
       )
   }
 

@@ -18,67 +18,67 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   article: any = {}
   subLang$: Subscription
   subParams$: Subscription
+  subFirstArt$: Subscription
   @ViewChild('satisfactionComp') satisfactionComp: SatisfactionComponent
   constructor(
     private router: Router,
     private generaleService: GeneraleService,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
+    if (this.subFirstArt$ != null) this.subFirstArt$?.unsubscribe()
     this.subParams$ = this.generaleService.articleId
       .pipe(
-        distinctUntilChanged(),
+        distinctUntilChanged((prev,cur)=>prev==cur),
         tap((id: any) => {
           console.log('articleId', id)
 
-          id == null
-            ? this.generaleService.fristArticle
-                .pipe(
-                  distinctUntilChanged(),
-                  filter((res) => res != null || res != undefined),
-                )
-                .subscribe((res) => {
-                  this.apiService.increment.next(true)
-                  this.router.navigateByUrl(this.router.url + '/' + res)
-                })
-            : null
+          // id == null
+          //   ? (this.subFirstArt$ = this.generaleService.fristArticle
+          //       .pipe(filter((fristID) => fristID != null))
+          //       .subscribe((fristID) => {
+          //         this.apiService.increment.next(true)
+          //         this.router.navigateByUrl(this.router.url + '/' + fristID)
+          //       }))
+          //   : id
         }),
         filter((id: any) => id != null || id != undefined),
       )
       .subscribe((id: any) => {
+        console.log('article iiiiid', id)
+        this.article = {}
+        this.satisfactionComp?.inistialize()
         this.articleId_ = id
         this.getArticles(this.lng_, id)
       })
 
-    this.subLang$ = this.generaleService.activeLanguage.pipe(
-      distinctUntilChanged(),
-      filter((res) => res != null || res != undefined),
-    ).subscribe(
-      (lng: any) => {
+    this.subLang$ = this.generaleService.activeLanguage
+      .pipe(
+        distinctUntilChanged(),
+        filter((res) => res != null || res != undefined),
+      )
+      .subscribe((lng: any) => {
         this.article = {}
         this.satisfactionComp?.inistialize()
         this.lng_ = lng
         this.getArticles(lng, this.articleId_)
-      },
-    )
+      })
   }
 
   getArticles(lng: string, id: string) {
     lng && id
-      ? this.apiService
-          .getArticleChilde(lng, id)
-          .subscribe((childs: any) => {
-            this.article = childs.data
-            console.log(this.article.label);
-            
-            this.apiService.increment.next(false)
-          })
-      : null
+      ? this.apiService.getArticleChilde(lng, id).subscribe((childs: any) => {
+          this.article = childs.data
+          console.log(this.article.label)
+
+          this.apiService.increment.next(false)
+        })
+      : false
   }
 
   ngOnDestroy() {
-    this.subLang$.unsubscribe()
-    this.subParams$.unsubscribe()
+    // this.subLang$.unsubscribe()
+    // this.subParams$.unsubscribe()
   }
 }

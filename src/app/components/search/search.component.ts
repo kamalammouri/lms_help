@@ -49,7 +49,10 @@ export class SearchComponent implements OnInit, OnDestroy {
             queryParamsHandling: 'merge',
           })
         } 
-        else this.router.navigate(['/' + lg + '/article'])
+        else {
+          this.router.navigate(['/' + lg + '/article'])
+        }
+        console.log('searchTerm$');
       })
   }
 
