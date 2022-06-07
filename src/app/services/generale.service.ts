@@ -45,22 +45,15 @@ export class GeneraleService {
           prev.snapshot.params['id'] == next.snapshot.params['id'],
       ),
       map((event: any) => {
+        // lng: event.snapshot.params['lg'] && this.langs.includes(event.snapshot.params['lg']) ? event.snapshot.params['lg'] : 'fr',
         return {
           lng: event.snapshot.params['lg'],
           id: event.snapshot.params['id'] ?? null,
         }
-      }),
-      tap((res: any) => {
-        return {
-          ...res,
-          lng: res.lng && this.langs.includes(res.lng) ? res.lng : 'fr',
-        }
-      }),
+      })
     )
 
     this.changeUrl.subscribe(({ lng, id }) => {
-      // console.log('id changed', id)
-      translate.setDefaultLang(lng)
       this.activeLanguage.next(lng)
       if (id != null) {
         this.articleId.next(id)
@@ -70,13 +63,16 @@ export class GeneraleService {
       }
     })
 
-    this.activeLanguage.pipe(distinctUntilChanged()).subscribe((lg: string) => {
+    this.activeLanguage.pipe(distinctUntilChanged(),filter((lang:any) => lang)).subscribe((lng: string) => {
+      // 
       let _url: any = this.router.url.split('/')
-      if (_url.length >= 2 && this.langs.includes(_url[1])) {
-        _url[1] = lg
+      if (_url.length >= 2) {
+        _url[1] = this.langs.includes(_url[1]) ? lng : 'fr'
+        translate.setDefaultLang(_url[1])
         _url = _url.join('/')
         this.router.navigateByUrl(_url)
-      }
+
+      }     
     })
   }
 }
