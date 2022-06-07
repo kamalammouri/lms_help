@@ -36,10 +36,20 @@
             </span>
         </div>
         <ng-container *ngFor="let hit of result?.hits">
-            <div class="row">
-                <pre>
+            <div class="row border-bottom">
+                <a routerLink="../article/{{hit?._source?.code}}">
+                    <app-article-description [articleDesc]='hit?._source'></app-article-description>
+                </a>
+                <!-- <pre>
                     {{hit | json}}
-                </pre>
+                </pre> -->
+                <!-- <ng-container [ngSwitch]="hit?._source?.type">
+                    <app-article-description *ngSwitchCase="'text'" [articleDesc]='hit?._source'></app-article-description>
+                    <app-article-video *ngSwitchCase="'video'" [articleVideo]='hit?._source'></app-article-video>
+                    <app-article-document *ngSwitchCase="'document'" [articleDoc]='hit?._source'></app-article-document>
+                    <app-article-document *ngSwitchCase="'pdf'" [articleDoc]='hit?._source'></app-article-document>
+                    <div class="border-bottom"></div>
+                </ng-container> -->
             </div>
         </ng-container>
 

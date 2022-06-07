@@ -53,9 +53,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             queryParams: { q: text },
             queryParamsHandling: 'merge',
           })
-        } else {
-          this.router.navigate(['/' +lg +'/article/' +this.generaleService.fristArticle.getValue()])
-        }
+        } 
       })
   }
   ngOnDestroy() {

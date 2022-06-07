@@ -33,6 +33,9 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     this.generaleService.articleId
       .pipe(
         combineLatestWith(this.subLang$),
+        tap( ([id, lang]) =>{
+          id==null? this.router.navigate(['/' +lang +'/article/' +this.generaleService.fristArticle.getValue()]):false
+        }),
         filter(
           ([id, lang]) =>
             (id != null || id != undefined) &&
