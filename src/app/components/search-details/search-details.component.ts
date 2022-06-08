@@ -20,6 +20,7 @@ import { HotToastService } from '@ngneat/hot-toast'
 export class SearchDetailsComponent implements OnInit, OnDestroy {
   result: any;
   searchValue:string;
+  searchFilter:string;
   subQueryparams$: Subscription
   subLang$ = this.generaleService.activeLanguage
   constructor(
@@ -50,6 +51,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
       )
       .subscribe(([query, lang]) => {
         this.searchValue = query?.['q'];
+        this.searchFilter = query?.['f'];
         this.getData(lang, query?.q, query?.f)
       })
   }

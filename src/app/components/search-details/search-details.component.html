@@ -1,4 +1,4 @@
-<div class="row d-flex align-items-center mt-4">
+<div class="row d-flex align-items-center mt-3">
     <div class="col-12 border-bottom pb-2">
         <a class="p-1 mx-3 text-muted cursor-pointer filterBtn"
             [routerLinkActiveOptions]="{exact: true}"
@@ -30,44 +30,52 @@
     <div class="col-12 pb-1">
         <div class="row my-3 text-end" *ngIf="result?.total?.value">
             <span class="text-muted small-text">
-                <span translate>About</span> {{ result?.total?.value ?? 0 }}
+                <span translate>{{'Environ' | translate}}</span> {{ result?.total?.value ?? 0 }}
                 <span
-                    translate>result</span> ({{ result?.max_score?.toFixed(2) ??
+                    translate>{{'résultats' | translate}}</span> ({{ result?.max_score?.toFixed(2) ??
                 0}}
-                <span translate>seconds</span>)
+                <span translate>{{'secondes' | translate}}</span>)
             </span>
         </div>
         <ng-container *ngFor="let hit of result?.hits">
-            <div class="row border-bottom hoverSerch">
-                <a routerLink="../article/{{hit?.code}}">
-                    <app-article-description [articleDesc]='hit'></app-article-description>
-                </a>
-                <!-- <pre>
-                    {{hit | json}}
-                </pre> -->
-                <!-- <ng-container [ngSwitch]="hit?.type">
-                    <app-article-description *ngSwitchCase="'text'" [articleDesc]='hit'></app-article-description>
-                    <app-article-video *ngSwitchCase="'video'" [articleVideo]='hit'></app-article-video>
-                    <app-article-document *ngSwitchCase="'document'" [articleDoc]='hit'></app-article-document>
-                    <app-article-document *ngSwitchCase="'pdf'" [articleDoc]='hit'></app-article-document>
-                    <div class="border-bottom"></div>
-                </ng-container> -->
+            <div class="row border-bottom">
+                <ng-container *ngIf="!searchFilter">
+                    <div>nnnnn</div>
+                    <div class="hoverSerch">
+                        <a routerLink="../article/{{hit?.code}}">
+                            <app-article-description [articleDesc]='hit'></app-article-description>
+                        </a>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="searchFilter">
+                    <div> okoko</div>
+                    <ng-container [ngSwitch]="hit?.type">
+                        <app-article-description *ngSwitchCase="'text'"
+                            [articleDesc]='hit'></app-article-description>
+                        <app-article-video *ngSwitchCase="'video'"
+                            [articleVideo]='hit'></app-article-video>
+                        <app-article-document *ngSwitchCase="'document'"
+                            [articleDoc]='hit'></app-article-document>
+                        <app-article-document *ngSwitchCase="'pdf'"
+                            [articleDoc]='hit'></app-article-document>
+                        <div class="border-bottom"></div>
+                    </ng-container>
+                </ng-container>
             </div>
         </ng-container>
         <ng-container *ngIf="!result?.total?.value || result?.total?.value ==
             0">
             <div class="row mt-5">
-                <p class="mb-0">Aucun document ne correspond aux termes de recherche
-                    spécifiés</p>
+                <p class="mb-0">{{'Aucun document ne correspond aux termes de recherche spécifiés' | translate}}</p>
                 <p class="fw-bold">({{searchValue}}).</p>
-                <p class="mb-1">Suggestions :</p>
+                <p class="mb-1">{{'Suggestions' | translate}} :</p>
                 <ul>
-                    <li>Vérifiez l’orthographe des termes de recherche.</li>
-                    <li>Essayez d'autres mots.</li>
-                    <li>Utilisez des mots clés plus généraux.</li>
+                    <li>{{'Vérifiez l’orthographe des termes de recherche.' | translate}}</li>
+                    <li>{{'Essayez autres mots.' | translate}}</li>
+                    <li>{{'Utilisez des mots clés plus généraux.' | translate}}</li>
                 </ul>
             </div>
-            
+
         </ng-container>
 
     </div>
