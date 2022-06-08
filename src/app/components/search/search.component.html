@@ -1,28 +1,26 @@
 <div class="container-fluid">
-    <div class="row align-items-center justify-content-between">
-        <div class="col-lg-3 col-sm-12 text-center">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-sm-12 my-2 text-center">
             <h2>{{'TITLE' | translate}}</h2>
         </div>
 
-        <div class="col-lg-7 col-md-12 p-0 m-0 mt-2">
-            <div class="search w-50 m-auto">
+        <div class="col-lg-4 col-md-8 col-sm-12 my-2 my-md-3 ms-lg-auto m-md-auto">
+            <div class="search">
                 <i class="fa fa-search"></i>
-                <input type="search" id="search" class="form-control" placeholder="{{'Avoir une question? Demande maintenant' | translate}}" #searhInput [value]="searchTerm$.getValue()" (input)="searchTerm$.next(searhInput.value)">
+                <input type="search" id="search" class="form-control"
+                    placeholder="{{'Avoir une question? Demande maintenant' |
+                    translate}}" #searhInput [value]="searchTerm$.getValue()"
+                    (input)="searchTerm$.next(searhInput.value)">
             </div>
-
         </div>
-        <!-- <div class="col-5">
-      <input type="search" name="search" id="search" placeholder="Sujet ou Mpt clé">
-      <button class="btn mbt-primary">
-        Recherche
-      </button>
-    </div> -->
 
-        <div class="col-lg-2 col-md-12 btnManuel text-center mt-2">
+        <div class="col-lg-2 col-md-12 ms-auto my-2 text-center">
             <button class="btn mbt-primary h-100 box-shadow text-nowrap">
-        <img src="https://img.icons8.com/officel/16/000000/export-pdf.png"/>
-        {{'Manual de formation' | translate}}
-      </button>
+                <img
+                    src="https://img.icons8.com/officel/16/000000/export-pdf.png"
+                    />
+                {{'Manual de formation' | translate}}
+            </button>
         </div>
 
     </div>
