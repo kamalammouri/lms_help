@@ -30,8 +30,10 @@
     <div class="col-12 pb-1">
         <div class="row my-3 text-end">
             <span class="text-muted small-text">
-                <span translate>About</span> {{ result?.total?.value }} <span
-                    translate>result</span> ({{ result?.max_score?.toFixed(2)}}
+                <span translate>About</span> {{ result?.total?.value ?? 0 }}
+                <span
+                    translate>result</span> ({{ result?.max_score?.toFixed(2) ??
+                0}}
                 <span translate>seconds</span>)
             </span>
         </div>
