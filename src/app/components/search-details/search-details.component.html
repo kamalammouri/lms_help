@@ -40,7 +40,6 @@
         <ng-container *ngFor="let hit of result?.hits">
             <div class="row border-bottom">
                 <ng-container *ngIf="!searchFilter">
-                    <div>nnnnn</div>
                     <div class="hoverSerch">
                         <a routerLink="../article/{{hit?.code}}">
                             <app-article-description [articleDesc]='hit'></app-article-description>
@@ -48,7 +47,6 @@
                     </div>
                 </ng-container>
                 <ng-container *ngIf="searchFilter">
-                    <div> okoko</div>
                     <ng-container [ngSwitch]="hit?.type">
                         <app-article-description *ngSwitchCase="'text'"
                             [articleDesc]='hit'></app-article-description>
