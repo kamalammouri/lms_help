@@ -54,6 +54,21 @@
                 </ng-container> -->
             </div>
         </ng-container>
+        <ng-container *ngIf="!result?.total?.value || result?.total?.value ==
+            0">
+            <div class="row mt-5">
+                <p class="mb-0">Aucun document ne correspond aux termes de recherche
+                    spécifiés</p>
+                <p class="fw-bold">({{searchValue}}).</p>
+                <p class="mb-1">Suggestions :</p>
+                <ul>
+                    <li>Vérifiez l’orthographe des termes de recherche.</li>
+                    <li>Essayez d'autres mots.</li>
+                    <li>Utilisez des mots clés plus généraux.</li>
+                </ul>
+            </div>
+            
+        </ng-container>
 
     </div>
 
