@@ -34,3 +34,8 @@
         height: 40px !important;
         text-align: end;
     }
+
+    .btnManuelDoc{
+        outline: 1px solid var(--mbtPrimary);
+    outline-offset: 1px;
+    }
