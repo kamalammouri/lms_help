@@ -28,7 +28,7 @@
 </div>
 <div class="card-body bg-hsla">
     <div class="col-12 pb-1">
-        <div class="row my-3 text-end">
+        <div class="row my-3 text-end" *ngIf="result?.total?.value">
             <span class="text-muted small-text">
                 <span translate>About</span> {{ result?.total?.value ?? 0 }}
                 <span
