@@ -1,7 +1,7 @@
 <div class="row mt-2">
     <div class="col-12">
         <ng-container *ngFor="let child of article?.children">
-            <ng-container [ngSwitch]="child.type">
+            <ng-container [ngSwitch]="child?.type">
                 <app-article-description *ngSwitchCase="'text'" [articleLabel]='article?.label' [articleDesc]='child'></app-article-description>
                 <app-article-video *ngSwitchCase="'video'" [articleVideo]='child'></app-article-video>
                 <app-article-document *ngSwitchCase="'document'" [articleDoc]='child'></app-article-document>

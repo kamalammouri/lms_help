@@ -1,8 +1,8 @@
 <div class="my-4">
     <div class="col-12">
-        <a class="d-flex align-items-center" href="./assets/doc/doc1.pdf" target="_blank"> 
+        <a class="d-flex align-items-center" [href]="articleDoc?.uri" target="_blank"> 
             <i class="far fa-file-lines fa-3x mbt-primary-text"></i>
-            <a class="m-3 p-1 text-muted text-decoration-underline" href="./assets/doc/doc1.pdf">Consultez le document</a>
+            <a class="m-3 p-1 text-muted text-decoration-underline" [href]="articleDoc?.uri">Consultez le document</a>
         </a>
     </div>
 </div>
