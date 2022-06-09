@@ -55,10 +55,10 @@ export class ContactComponent implements OnInit {
   }
 
   sendMessage(): void {
-    this.submitted = true
     if (this.contactForm.invalid) {
       return
     }
+    this.submitted = true
     // let data:string = this.contactForm.value.fullname+'/'+this.contactForm.value.email+'/'+this.contactForm.value.message
     // console.log(this.contactForm.value);
 
