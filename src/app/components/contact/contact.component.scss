@@ -3,9 +3,10 @@
     cursor: pointer !important;
 }
 
-.contact_icon{
-    transition: all 0.5s;
-}
+// .contact_icon{
+//     transition: all 0.5s;
+//     border-radius:50%
+// }
 
 .contact_form{
     width:350px;
@@ -35,6 +36,7 @@ textarea {
 }
 
 .msg_icon{
+    background-color: #fff;
     color: var(--mbtPrimary) !important;
     padding:10px;
     border-radius:50%;
