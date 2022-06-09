@@ -73,7 +73,8 @@ export class ContactComponent implements OnInit {
         // this.contactForm.clearValidators()
         Object.keys(this.contactForm.controls).forEach((key) => {
           console.log(key)
-          this.contactForm.get(key).setErrors(null)
+          // this.contactForm.get(key).setErrors(null)
+          this.contactForm.get(key).setValue('')
         })
       },
     })
