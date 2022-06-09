@@ -16,7 +16,7 @@
             <div class="form">
                 <i class="icon fa fa-search" [hidden]="isSearching"></i>
                 <i class="icon fas fa-circle-notch text-muted" [hidden]="!isSearching"></i>
-                <input type="search" class="form-control form-input"
+                <input type="search" class="form-control form-input box-shadow"
                     placeholder="{{'Avoir une question? Demande maintenant' |
                     translate}}" #searhInput [value]="searchTerm$.getValue()"
                     (input)="searchTerm$.next(searhInput.value)">
@@ -26,7 +26,7 @@
 
         <div class="col-lg-2 col-md-12 d-flex justify-content-center
             align-items-center">
-            <button class="btn mbt-primary box-shadow text-nowrap btnManuelDoc">
+            <button class="btn mbt-primary text-nowrap btnManuelDoc box-shadow">
                 <img
                     src="https://img.icons8.com/officel/16/000000/export-pdf.png"
                     />

@@ -50,17 +50,20 @@
                 </ng-container>
                 <ng-container *ngIf="searchFilter">
                     <ng-container [ngSwitch]="hit?.type">
-                        <app-article-description *ngSwitchCase="'text'" [articleDesc]='hit'></app-article-description>
-                        <app-article-video *ngSwitchCase="'video'" [articleVideo]='hit'></app-article-video>
-                        <app-article-document *ngSwitchCase="'document'" [articleDoc]='hit'></app-article-document>
-                        <app-article-document *ngSwitchCase="'pdf'" [articleDoc]='hit'></app-article-document>
+                        <app-article-description *ngSwitchCase="'text'"
+                            [articleDesc]='hit'></app-article-description>
+                        <app-article-video *ngSwitchCase="'video'"
+                            [articleVideo]='hit'></app-article-video>
+                        <app-article-document *ngSwitchCase="'document'"
+                            [articleDoc]='hit'></app-article-document>
+                        <app-article-document *ngSwitchCase="'pdf'"
+                            [articleDoc]='hit'></app-article-document>
                         <div class="border-bottom"></div>
                     </ng-container>
                 </ng-container>
             </div>
         </ng-container>
-        <ng-container *ngIf="!result?.total?.value || result?.total?.value ==
-            0">
+        <ng-container *ngIf="result?.total?.value <=0">
             <div class="row mt-5">
                 <p class="mb-0">{{'Aucun document ne correspond aux termes de
                     recherche spécifiés' | translate}}</p>
