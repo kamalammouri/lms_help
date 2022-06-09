@@ -2,7 +2,9 @@
     <h5 class="mbt-primary-text text-decoration-underline py-1">
         {{articleLabel ?? articleDesc?.label}}
     </h5>
-    <p class="text-muted py-1">
+    <!-- <p class="text-muted py-1">
         {{articleDesc?.desc}}
-    </p>
+    </p> -->
+    <div class="text-muted py-1" [innerHTML]="articleDesc?.desc"></div>
+    <!-- <div class="text-muted py-1" [innerHTML]="test"></div> -->
 </div>
