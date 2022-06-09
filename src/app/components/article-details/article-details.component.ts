@@ -41,7 +41,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
         combineLatestWith(this.subLang$),
         filter( ([id,lang]:any) => id!=null && lang!=null),
         distinctUntilChanged((prev:any,curr:any) => prev[0] == curr[0] && prev[1] == curr[1]),
-        tap(res => console.log('secondTap',res)),
+        // tap(res => console.log('secondTap',res)),
       )
       .subscribe(([id, lang]) => {
         this.articleId_ = id;

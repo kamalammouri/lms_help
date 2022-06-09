@@ -52,6 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             })
           }
           if (text == '') {
+            this.generaleService.searchSpinner.next(false)
             this.router.navigate([
               '/' +
                 lg +

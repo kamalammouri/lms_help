@@ -18,7 +18,8 @@ import { HotToastService } from '@ngneat/hot-toast'
   styleUrls: ['./search-details.component.scss'],
 })
 export class SearchDetailsComponent implements OnInit, OnDestroy {
-  result: any
+  result: any = [];
+  haveResult : boolean = null;
   searchValue: string
   searchFilter: string
   subQueryparams$: Subscription
@@ -65,6 +66,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   }
 
   getData(lg: string, query: string, filtr: string = null) {
+    this.haveResult = true
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr
     // console.log('data', data)
@@ -77,8 +79,13 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
         map((res: any) => res?.data?.es_supportHelp),
       )
       .subscribe({
-        next: (res: any) => (this.result = res),
-        complete: () => this.generaleService.searchSpinner.next(false),
+        next: (res: any) => {
+          this.result = res
+          res && res?.total?.value > 0 ? this.haveResult = true : this.haveResult = false
+        },
+        complete: () => {
+          this.generaleService.searchSpinner.next(false)
+        },
       })
   }
 
