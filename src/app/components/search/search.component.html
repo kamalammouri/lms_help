@@ -20,7 +20,7 @@
                     placeholder="{{'Avoir une question? Demande maintenant' |
                     translate}}" #searhInput [value]="searchTerm$.getValue()"
                     (input)="searchTerm$.next(searhInput.value)">
-                <!-- <span class="left-pan" [hidden]="isSearching"><i class="fas fa-circle-notch text-muted"></i></span> -->
+                <!-- <span class="left-pan" [hidden]="!isSearching"><i class="icon fas fa-circle-notch text-muted"></i></span> -->
             </div>
         </div>
 
