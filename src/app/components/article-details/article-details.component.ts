@@ -23,6 +23,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   article: any = {}
   subLang$ = this.generaleService.activeLanguage
   subNav$ : Subscription;
+  subUrl$: Subscription
   @ViewChild('satisfactionComp') satisfactionComp: SatisfactionComponent
   constructor(
     private router: Router,
@@ -35,7 +36,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
       if (res) this.navigateToFirstArticle()
     })
 
-    this.generaleService.articleId
+    this.subUrl$ = this.generaleService.articleId
       .pipe(
         combineLatestWith(this.subLang$),
         filter( ([id,lang]:any) => id!=null && lang!=null),
@@ -70,7 +71,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     //   this.subLang$.unsubscribe()
-    //   this.subParams$.unsubscribe()
+      this.subUrl$.unsubscribe()
     this.subNav$.unsubscribe()
   }
 }
