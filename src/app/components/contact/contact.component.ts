@@ -19,6 +19,7 @@ export class ContactComponent implements OnInit {
   contactForm: FormGroup
   imgHide: boolean = true
   submitted: boolean = false
+  isSend: boolean = false
   siteKey: string = '6LfO308gAAAAAB-zLkKIZkvPr5W8HyMktlmOihn5'
   lng: string = 'fr'
   constructor(
@@ -55,10 +56,11 @@ export class ContactComponent implements OnInit {
   }
 
   sendMessage(): void {
+    this.submitted = true
     if (this.contactForm.invalid) {
       return
     }
-    this.submitted = true
+    this.isSend = true
     // let data:string = this.contactForm.value.fullname+'/'+this.contactForm.value.email+'/'+this.contactForm.value.message
     // console.log(this.contactForm.value);
 
@@ -69,15 +71,16 @@ export class ContactComponent implements OnInit {
         setTimeout(() => (this.successSend = false), 2000)
       },
       complete: () => {
+        this.isSend = true
         this.submitted = false;
-        // this.contactForm.reset()
+        this.contactForm.reset()
         // this.contactForm.clearValidators()
         Object.keys(this.contactForm.controls).forEach((key) => {
           console.log(key)
           // this.contactForm.get(key).setErrors(null)
           this.contactForm.get(key).setValue('')
         })
-      }
+      },
     })
   }
 }
