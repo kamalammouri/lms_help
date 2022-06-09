@@ -18,8 +18,8 @@ import { HotToastService } from '@ngneat/hot-toast'
   styleUrls: ['./search-details.component.scss'],
 })
 export class SearchDetailsComponent implements OnInit, OnDestroy {
-  result: any = [];
-  haveResult : boolean = null;
+  result: any = []
+  haveResult: boolean = null
   searchValue: string
   searchFilter: string
   subQueryparams$: Subscription
@@ -33,20 +33,19 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-   
     this.subQueryparams$ = this.activeRoute.queryParams
       .pipe(
         combineLatestWith(this.subLang$),
         tap(([query, lang]) => {
-          query?.['q'] == ''
-            ? this.router.navigate([
-                '/' +
-                  lang +
-                  '/article/' +
-                  this.generaleService.fristArticle.getValue(),
-              ])
-            : false
-          console.log('SearchDetailsComponent', query)
+          if (query?.['q'] == '') {
+            this.router.navigate([
+              '/' +
+                lang +
+                '/article/' +
+                this.generaleService.fristArticle.getValue(),
+            ])
+            this.apiService.increment.next(true)
+          }
         }),
         filter(
           ([query, lang]) =>
@@ -81,7 +80,9 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.result = res
-          res && res?.total?.value > 0 ? this.haveResult = true : this.haveResult = false
+          res && res?.total?.value > 0
+            ? (this.haveResult = true)
+            : (this.haveResult = false)
         },
         complete: () => {
           this.generaleService.searchSpinner.next(false)

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators'
+import { ApiService } from 'src/app/services/api.service'
 import { GeneraleService } from 'src/app/services/generale.service'
 
 @Component({
@@ -19,10 +20,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
     private router: Router,
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
-    this.generaleService.searchSpinner.subscribe( (res: boolean) => this.isSearching = res);
+    this.generaleService.searchSpinner.pipe(distinctUntilChanged()).subscribe((res: boolean) => this.isSearching = res);
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
         tap((res: any) => {
@@ -45,20 +47,21 @@ export class SearchComponent implements OnInit, OnDestroy {
         next: (text) => {
           let lg = this.generaleService.activeLanguage.getValue()
           if (text != '') {
-            this.generaleService.searchSpinner.next(true)
             this.router.navigate(['/' + lg + '/search'], {
               queryParams: { q: text },
               queryParamsHandling: 'merge',
             })
+            this.generaleService.searchSpinner.next(true)
           }
           if (text == '') {
             this.generaleService.searchSpinner.next(false)
             this.router.navigate([
               '/' +
-                lg +
-                '/article/' +
-                this.generaleService.fristArticle.getValue(),
+              lg +
+              '/article/' +
+              this.generaleService.fristArticle.getValue(),
             ])
+            this.apiService.increment.next(true)
           }
         }
       })
