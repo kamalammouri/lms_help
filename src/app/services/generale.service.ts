@@ -22,6 +22,7 @@ import {
 export class GeneraleService {
   langs = ['en', 'de', 'fr']
 
+  searchSpinner = new BehaviorSubject<boolean>(false);
   activeLanguage = new BehaviorSubject<string>(null)
   fristArticle = new BehaviorSubject<string>(null)
   changeUrl: Observable<{ lng: string; id?: string }>

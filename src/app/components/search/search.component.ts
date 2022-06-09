@@ -10,6 +10,7 @@ import { GeneraleService } from 'src/app/services/generale.service'
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  isSearching:boolean = false;
   queryParams: any = {}
   searchTerm$ = new BehaviorSubject<string | null>(null)
   subQueryparams: Subscription
@@ -21,6 +22,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.generaleService.searchSpinner.subscribe( (res: boolean) => this.isSearching = res);
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
         tap((res: any) => {
@@ -39,15 +41,24 @@ export class SearchComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         debounceTime(800),
       )
-      .subscribe((text) => {
-        let lg = this.generaleService.activeLanguage.getValue()
-        if (text != '') {
-          this.router.navigate(['/' + lg + '/search'], {
-            queryParams: { q: text },
-            queryParamsHandling: 'merge',
-          })
-        }if(text == ''){
-          this.router.navigate(['/' + lg + '/article/' + this.generaleService.fristArticle.getValue()])
+      .subscribe({
+        next: (text) => {
+          this.generaleService.searchSpinner.next(true)
+          let lg = this.generaleService.activeLanguage.getValue()
+          if (text != '') {
+            this.router.navigate(['/' + lg + '/search'], {
+              queryParams: { q: text },
+              queryParamsHandling: 'merge',
+            })
+          }
+          if (text == '') {
+            this.router.navigate([
+              '/' +
+                lg +
+                '/article/' +
+                this.generaleService.fristArticle.getValue(),
+            ])
+          }
         }
       })
   }

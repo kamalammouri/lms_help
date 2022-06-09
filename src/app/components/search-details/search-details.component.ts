@@ -18,9 +18,9 @@ import { HotToastService } from '@ngneat/hot-toast'
   styleUrls: ['./search-details.component.scss'],
 })
 export class SearchDetailsComponent implements OnInit, OnDestroy {
-  result: any;
-  searchValue:string;
-  searchFilter:string;
+  result: any
+  searchValue: string
+  searchFilter: string
   subQueryparams$: Subscription
   subLang$ = this.generaleService.activeLanguage
   constructor(
@@ -32,11 +32,19 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+   
     this.subQueryparams$ = this.activeRoute.queryParams
       .pipe(
         combineLatestWith(this.subLang$),
         tap(([query, lang]) => {
-          query?.['q'] == '' ? this.router.navigate([ '/' + lang + '/article/' + this.generaleService.fristArticle.getValue()]) : false
+          query?.['q'] == ''
+            ? this.router.navigate([
+                '/' +
+                  lang +
+                  '/article/' +
+                  this.generaleService.fristArticle.getValue(),
+              ])
+            : false
           console.log('SearchDetailsComponent', query)
         }),
         filter(
@@ -50,8 +58,8 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
         ),
       )
       .subscribe(([query, lang]) => {
-        this.searchValue = query?.['q'];
-        this.searchFilter = query?.['f'];
+        this.searchValue = query?.['q']
+        this.searchFilter = query?.['f']
         this.getData(lang, query?.q, query?.f)
       })
   }
@@ -68,7 +76,10 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
         catchError((error) => of(error)),
         map((res: any) => res?.data?.es_supportHelp),
       )
-      .subscribe((res: any) => (this.result = res))
+      .subscribe({
+        next: (res: any) => (this.result = res),
+        complete: () => this.generaleService.searchSpinner.next(false),
+      })
   }
 
   // navigateTo(parentId:string){

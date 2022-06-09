@@ -1,41 +1,95 @@
-.search{
-    position: relative;
-    box-shadow: 0 0 10px rgba(51, 51, 51, .1);
-    }
+.search {
+  position: relative;
+  box-shadow: 0 0 10px rgba(51, 51, 51, 0.1);
+}
 
-    .search input{
-        height: 40px;
-        text-indent: 25px;
-        border: 2px solid #d6d4d4;
-    }
+.search input {
+  height: 40px;
+  text-indent: 25px;
+  border: 2px solid #d6d4d4;
+}
+
+.search input:focus {
+  box-shadow: none;
+  border: 2px solid var(--mbtPrimary);
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 12.5px;
+  left: 16px;
+}
+.search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 110px;
+  background: var(--mbtPrimary);
+}
+
+.btnManuel {
+  height: 40px !important;
+  text-align: end;
+}
+
+.btnManuelDoc {
+  outline: 1px solid var(--mbtPrimary);
+  outline-offset: 1px;
+}
+
+.form {
+  position: relative;
+}
+
+.form .icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #9ca3af;
+}
+
+.form .fa-circle-notch {
+  // padding-left: 10px;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+}
+
+.form span {
+  position: absolute;
+  right: 17px;
+  top: 13px;
+  padding: 2px;
+  // border-left: 1px solid #d1d5db;
+}
+
+.left-pan {
+  padding-left: 7px;
+
+}
 
 
-    .search input:focus{
-        box-shadow: none;
-        border: 2px solid var(--mbtPrimary);
-    }
 
-    .search .fa-search{
-        position: absolute;
-        top: 12.5px;
-        left: 16px;
+.form-input {
+  height: 55px;
+  text-indent: 33px;
+  border-radius: 10px;
+  border-color: var(--mbtPrimary);
+}
 
-    }
-    .search button{
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        width: 110px;
-        background: var(--mbtPrimary);
-    }
+.form-input:focus {
+  box-shadow: none;
+//   border: none;
+}
 
-    .btnManuel{
-        height: 40px !important;
-        text-align: end;
-    }
 
-    .btnManuelDoc{
-        outline: 1px solid var(--mbtPrimary);
-    outline-offset: 1px;
-    }
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
