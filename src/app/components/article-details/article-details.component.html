@@ -5,6 +5,7 @@
                 <app-article-description *ngSwitchCase="'text'" [articleLabel]='article?.label' [articleDesc]='child'></app-article-description>
                 <app-article-video *ngSwitchCase="'video'" [articleVideo]='child'></app-article-video>
                 <app-article-document *ngSwitchCase="'document'" [articleDoc]='child'></app-article-document>
+                <app-article-document *ngSwitchCase="'pdf'" [articleDoc]='child'></app-article-document>
                 <div class="border-bottom"></div>
             </ng-container>
         </ng-container>

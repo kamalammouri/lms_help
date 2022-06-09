@@ -30,9 +30,11 @@
     <div class="col-12 pb-1">
         <div class="row my-3 text-end" *ngIf="result?.total?.value">
             <span class="text-muted small-text">
-                <span translate>{{'Environ' | translate}}</span> {{ result?.total?.value ?? 0 }}
+                <span translate>{{'Environ' | translate}}</span> {{
+                result?.total?.value ?? 0 }}
                 <span
-                    translate>{{'résultats' | translate}}</span> ({{ result?.max_score?.toFixed(2) ??
+                    translate>{{'résultats' | translate}}</span> ({{
+                result?.max_score?.toFixed(2) ??
                 0}}
                 <span translate>{{'secondes' | translate}}</span>)
             </span>
@@ -48,14 +50,10 @@
                 </ng-container>
                 <ng-container *ngIf="searchFilter">
                     <ng-container [ngSwitch]="hit?.type">
-                        <app-article-description *ngSwitchCase="'text'"
-                            [articleDesc]='hit'></app-article-description>
-                        <app-article-video *ngSwitchCase="'video'"
-                            [articleVideo]='hit'></app-article-video>
-                        <app-article-document *ngSwitchCase="'document'"
-                            [articleDoc]='hit'></app-article-document>
-                        <app-article-document *ngSwitchCase="'pdf'"
-                            [articleDoc]='hit'></app-article-document>
+                        <app-article-description *ngSwitchCase="'text'" [articleDesc]='hit'></app-article-description>
+                        <app-article-video *ngSwitchCase="'video'" [articleVideo]='hit'></app-article-video>
+                        <app-article-document *ngSwitchCase="'document'" [articleDoc]='hit'></app-article-document>
+                        <app-article-document *ngSwitchCase="'pdf'" [articleDoc]='hit'></app-article-document>
                         <div class="border-bottom"></div>
                     </ng-container>
                 </ng-container>
@@ -64,11 +62,13 @@
         <ng-container *ngIf="!result?.total?.value || result?.total?.value ==
             0">
             <div class="row mt-5">
-                <p class="mb-0">{{'Aucun document ne correspond aux termes de recherche spécifiés' | translate}}</p>
+                <p class="mb-0">{{'Aucun document ne correspond aux termes de
+                    recherche spécifiés' | translate}}</p>
                 <p class="fw-bold">({{searchValue}}).</p>
                 <p class="mb-1">{{'Suggestions' | translate}} :</p>
                 <ul>
-                    <li>{{'Vérifiez l’orthographe des termes de recherche.' | translate}}</li>
+                    <li>{{'Vérifiez l’orthographe des termes de recherche.' |
+                        translate}}</li>
                     <li>{{'Essayez autres mots.' | translate}}</li>
                     <li>{{'Utilisez des mots clés plus généraux.' | translate}}</li>
                 </ul>
