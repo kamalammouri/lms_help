@@ -62,13 +62,20 @@ export class ContactComponent implements OnInit {
     // let data:string = this.contactForm.value.fullname+'/'+this.contactForm.value.email+'/'+this.contactForm.value.message
     // console.log(this.contactForm.value);
 
-    this.apiService.contact(this.contactForm.value).subscribe((res) => {
-      // console.log('contact',res)
-      this.imgHide = true
-      this.successSend = true
-      this.contactForm.reset()
-      this.contactForm.clearValidators()
-      setTimeout(() => (this.successSend = false), 2000)
+    this.apiService.contact(this.contactForm.value).subscribe({
+      next: (res) => {
+        this.imgHide = true
+        this.successSend = true
+        setTimeout(() => (this.successSend = false), 2000)
+      },
+      complete: () => {
+        this.contactForm.reset()
+        // this.contactForm.clearValidators()
+        Object.keys(this.contactForm.controls).forEach((key) => {
+          console.log(key)
+          this.contactForm.get(key).setErrors(null)
+        })
+      },
     })
   }
 }
