@@ -3,6 +3,10 @@
     cursor: pointer !important;
 }
 
+.contact_icon{
+    transition: all 0.5s;
+}
+
 .contact_form{
     width:350px;
     border: 1px solid var(--mbtPrimary);
@@ -35,5 +39,8 @@ textarea {
     padding:10px;
     border-radius:50%;
     border: 2px solid var(--mbtPrimary) !important;
+}
+
+.icon_trans{
     transform: rotateY(-180deg);
 }

@@ -15,6 +15,7 @@ import { GeneraleService } from 'src/app/services/generale.service'
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
+  successSend: boolean = false
   contactForm: FormGroup
   imgHide: boolean = true
   submitted: boolean = false
@@ -43,10 +44,10 @@ export class ContactComponent implements OnInit {
 
   togle(value: boolean, clear: boolean = false) {
     this.imgHide = value
-    if (clear) {
-      this.contactForm.reset()
-      this.contactForm.clearValidators()
-    }
+    // if (clear) {
+    //   this.contactForm.reset()
+    //   this.contactForm.clearValidators()
+    // }
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -64,6 +65,10 @@ export class ContactComponent implements OnInit {
     this.apiService.contact(this.contactForm.value).subscribe((res) => {
       // console.log('contact',res)
       this.imgHide = true
+      this.successSend = true
+      this.contactForm.reset()
+      this.contactForm.clearValidators()
+      setTimeout(() => (this.successSend = false), 2000)
     })
   }
 }

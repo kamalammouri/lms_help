@@ -1,5 +1,6 @@
  <div class="contact_icon cursor-pointer" *ngIf="imgHide" (click)="togle(false,true)">
-  <i class="fas fa-comment-dots fa-2x msg_icon"></i>
+  <i *ngIf="!successSend" class="fas fa-comment-dots fa-2x msg_icon icon_trans"></i>
+  <i  *ngIf="successSend" class="fas fa-check fa-2x msg_icon"></i>
 </div>
 
 <div class="contact_form box-shadow" *ngIf="!imgHide">
