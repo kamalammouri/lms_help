@@ -43,9 +43,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (text) => {
-          this.generaleService.searchSpinner.next(true)
           let lg = this.generaleService.activeLanguage.getValue()
           if (text != '') {
+            this.generaleService.searchSpinner.next(true)
             this.router.navigate(['/' + lg + '/search'], {
               queryParams: { q: text },
               queryParamsHandling: 'merge',

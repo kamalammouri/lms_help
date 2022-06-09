@@ -16,7 +16,7 @@
             <div class="form">
                 <i class="icon fa fa-search" [hidden]="isSearching"></i>
                 <i class="icon fas fa-circle-notch text-muted" [hidden]="!isSearching"></i>
-                <input type="text" class="form-control form-input"
+                <input type="search" class="form-control form-input"
                     placeholder="{{'Avoir une question? Demande maintenant' |
                     translate}}" #searhInput [value]="searchTerm$.getValue()"
                     (input)="searchTerm$.next(searhInput.value)">
