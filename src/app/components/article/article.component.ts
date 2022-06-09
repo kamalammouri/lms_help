@@ -13,7 +13,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   // routeParams:any = this.activeRoute.params;
   topArticles$ = new BehaviorSubject<any>([])
   activeLg$ = this.generaleService.activeLanguage
-  subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged())
+  subLang$:Subscription;
   // subService$: Subscription
   constructor(
     private router: Router,
@@ -23,7 +23,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subLang$.subscribe((lang: string) => {
+    this.subLang$ = this.generaleService.activeLanguage.pipe(distinctUntilChanged(),filter((lang:any)=>lang)).subscribe((lang: string) => {
       this.topArticles$.next([]);
       this.apiService
         .getTopArticles(lang)
@@ -36,12 +36,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
         )
         .subscribe((topArtcile: any) => {
           this.topArticles$.next(topArtcile)
-          this.generaleService.fristArticle.next(topArtcile[0]?.code)
+          this.apiService.increment.next(true)
+          this.generaleService.fristArticle.next(topArtcile[0]?.code);
         })
     })
   }
 
   ngOnDestroy() {
     // this.subService$.unsubscribe()
+    // this.subLang$.unsubscribe()
   }
 }

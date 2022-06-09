@@ -31,22 +31,16 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subNav$ = this.generaleService.navigToFirstArticle.subscribe((res) => {
+    this.subNav$ = this.generaleService.navigToFirstArticle.pipe(distinctUntilChanged()).subscribe((res) => {
       if (res) this.navigateToFirstArticle()
     })
 
     this.generaleService.articleId
       .pipe(
         combineLatestWith(this.subLang$),
-        filter(
-          ([id, lang]) =>
-            (id != null || id != undefined) &&
-            (lang != null || lang != undefined),
-        ),
-        distinctUntilChanged(
-          ([idPrev, langPrev]: any, [idCur, langCur]: any) =>
-            idPrev === idCur && langPrev === langCur,
-        ),
+        filter( ([id,lang]:any) => id!=null && lang!=null),
+        distinctUntilChanged((prev:any,curr:any) => prev[0] == curr[0] && prev[1] == curr[1]),
+        tap(res => console.log('secondTap',res)),
       )
       .subscribe(([id, lang]) => {
         this.articleId_ = id;
@@ -66,7 +60,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   navigateToFirstArticle() {
     this.generaleService.fristArticle
       .pipe(
-        filter((firstId) => firstId !== null),
+        filter((firstId:any) => firstId),
         distinctUntilChanged(),
       )
       .subscribe((firstId) => {
