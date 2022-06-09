@@ -57,7 +57,13 @@
         <div *ngIf="f['recaptcha'].errors['required']">recaptcha is required</div>
       </div>
       <div class="row p-3 mt-2">
-        <button class="col-4 mr-auto btn_send" (click)="sendMessage()">Envoyer</button>
+        <!-- <button class="col-4 me-auto btn_send" (click)="sendMessage()">Envoyer</button> -->
+        <button class="col-4 me-auto btn btn_send" type="button" (click)="sendMessage()" [disabled]="submitted">
+          Envoyer
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" [hidden]="!submitted"></span>
+        </button>
+        
+        
       </div>
     </div>
 
