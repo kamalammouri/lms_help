@@ -15,7 +15,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   queryParams: any = {}
   searchTerm$ = new BehaviorSubject<string | null>(null)
   subQueryparams: Subscription
-  subSearch: Subscription
+  subSearch$: Subscription
+  subSpinner$: Subscription
   constructor(
     private activeRoute: ActivatedRoute,
     private generaleService: GeneraleService,
@@ -24,7 +25,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.generaleService.searchSpinner.pipe(distinctUntilChanged()).subscribe((res: boolean) => this.isSearching = res);
+    this.subSpinner$ = this.generaleService.searchSpinner.pipe(distinctUntilChanged()).subscribe((res: boolean) => this.isSearching = res);
     this.subQueryparams = this.activeRoute.queryParams
       .pipe(
         tap((res: any) => {
@@ -68,6 +69,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subQueryparams.unsubscribe()
+    this.subSpinner$.unsubscribe()
     // this.subSearch.unsubscribe()
   }
 }
