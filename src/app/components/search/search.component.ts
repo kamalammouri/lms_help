@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
               queryParams: { q: text },
               queryParamsHandling: 'merge',
             })
-            this.generaleService.searchSpinner.next(true)
+            // this.generaleService.searchSpinner.next(true)
           }
           if (text == '') {
             this.generaleService.searchSpinner.next(false)

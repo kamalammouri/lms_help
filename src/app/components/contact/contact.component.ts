@@ -22,6 +22,7 @@ export class ContactComponent implements OnInit {
   isSend: boolean = false
   siteKey: string = '6LfO308gAAAAAB-zLkKIZkvPr5W8HyMktlmOihn5'
   lng: string = 'fr'
+  error:string=null
   constructor(
     private formBuilder: FormBuilder,
     private generaleService: GeneraleService,
@@ -70,8 +71,13 @@ export class ContactComponent implements OnInit {
         this.successSend = true
         setTimeout(() => (this.successSend = false), 2000)
       },
+      error: (err) => {
+        this.error=err.message
+        console.log(err.message);
+        
+      },
       complete: () => {
-        this.isSend = true
+        this.isSend = false
         this.submitted = false;
         this.contactForm.reset()
         // this.contactForm.clearValidators()

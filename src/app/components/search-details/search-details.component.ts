@@ -65,6 +65,7 @@ export class SearchDetailsComponent implements OnInit, OnDestroy {
   }
 
   getData(lg: string, query: string, filtr: string = null) {
+    this.generaleService.searchSpinner.next(true);
     this.haveResult = true
     filtr = filtr ? '/' + filtr : ''
     let data: string = lg + '/' + query + filtr

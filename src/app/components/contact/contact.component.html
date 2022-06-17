@@ -62,6 +62,10 @@
           {{'Envoyer' | translate}}
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" [hidden]="!isSend"></span>
         </button>
+        <span>{{error}}</span>
+        <div class="invalid-feedback" [hidden]="error == null">
+          <span>{{error}}</span>
+        </div>
         
         
       </div>
