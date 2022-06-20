@@ -18,7 +18,8 @@ import { ArticleDocumentComponent } from './components/article-document/article-
 import { SearchDetailsComponent } from './components/search-details/search-details.component';
 import { HotToastModule } from '@ngneat/hot-toast'
 import { NgxCaptchaModule } from 'ngx-captcha';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { ArticleImageComponent } from './components/article-image/article-image.component'
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
@@ -36,6 +37,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     ArticleVideoComponent,
     ArticleDescriptionComponent,
     ArticleDocumentComponent,
+    ArticleImageComponent,
   ],
   imports: [
     ReactiveFormsModule,
