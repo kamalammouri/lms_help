@@ -15,14 +15,14 @@ export class ApiService {
 
   getTopArticles(lg: string): Observable<any> {
     return this.httpClient.get<any>(
-      'http://192.168.1.52/api/lmshelp/' + lg + '/topArticles',
+      '/api/lmshelp/' + lg + '/topArticles',
     )
   }
 
   getArticleChilde(lg: string, code: string): Observable<any> {
     let artilceUrl = this.increment.getValue()
-      ? 'http://192.168.1.52/api/lmshelp/' + lg + '/getArticle/' + code + '/true'
-      : 'http://192.168.1.52/api/lmshelp/' + lg + '/getArticle/' + code
+      ? '/api/lmshelp/' + lg + '/getArticle/' + code + '/true'
+      : '/api/lmshelp/' + lg + '/getArticle/' + code
 
     console.log(artilceUrl)
 
@@ -31,26 +31,26 @@ export class ApiService {
 
   makeSession(): Observable<any> {
     return this.httpClient.get<any>(
-      'http://192.168.1.52/api/lmshelp/createSession',
+      '/api/lmshelp/createSession',
     )
   }
 
   search(data: any): Observable<any> {
     return this.httpClient.get<any>(
-      'http://192.168.1.52/api/lmshelp/search/' + data,
+      '/api/lmshelp/search/' + data,
     )
   }
 
   satisfaction(data: any): Observable<any> {
     return this.httpClient.post<any>(
-      'http://192.168.1.52/api/lmshelp/satisfaction',
+      '/api/lmshelp/satisfaction',
       data,
     )
   }
 
   contact(data: any): Observable<any> {
     return this.httpClient.post<any>(
-      'http://192.168.1.52/api/lmshelp/contact',
+      '/api/lmshelp/contact',
       data,
     )
   }
